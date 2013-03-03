@@ -19,6 +19,10 @@ package pt.lunacloud;
  */
 public enum HttpMethod {
 
-    GET, POST, PUT, DELETE, HEAD;
+	GET,
+	POST,
+	PUT,
+	DELETE,
+	HEAD;
 
 }

@@ -18,7 +18,7 @@ import pt.lunacloud.auth.policy.Action;
 import pt.lunacloud.auth.policy.Statement;
 import pt.lunacloud.auth.policy.resources.S3BucketResource;
 import pt.lunacloud.auth.policy.resources.S3ObjectResource;
-import pt.lunacloud.services.s3.LunacloudStorage;
+import pt.lunacloud.services.storage.LunacloudStorage;
 
 /**
  * The available AWS access control policy actions for Amazon S3.

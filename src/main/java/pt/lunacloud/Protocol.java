@@ -24,31 +24,33 @@ package pt.lunacloud;
  */
 public enum Protocol {
 
-    /**
-     * HTTP Protocol - Using the HTTP protocol is less secure than HTTPS, but
-     * can slightly reduce the system resources used when communicating with
-     * AWS.
-     */
-    HTTP("http"),
+	/**
+	 * HTTP Protocol - Using the HTTP protocol is less secure than HTTPS, but
+	 * can slightly reduce the system resources used when communicating with
+	 * AWS.
+	 */
+	HTTP("http"),
 
-    /**
-     * HTTPS Protocol - Using the HTTPS protocol is more secure than using the
-     * HTTP protocol, but may use slightly more system resources. AWS recommends
-     * using HTTPS for maximize security.
-     */
-    HTTPS("https");
+	/**
+	 * HTTPS Protocol - Using the HTTPS protocol is more secure than using the
+	 * HTTP protocol, but may use slightly more system resources. AWS recommends
+	 * using HTTPS for maximize security.
+	 */
+	HTTPS("https");
 
-    private final String protocol;
+	private final String protocol;
 
-    private Protocol(String protocol) {
-        this.protocol = protocol;
-    }
+	private Protocol(String protocol) {
+		this.protocol = protocol;
+	}
 
-    /* (non-Javadoc)
-     * @see java.lang.Enum#toString()
-     */
-    @Override
-    public String toString() {
-        return protocol;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Enum#toString()
+	 */
+	@Override
+	public String toString() {
+		return protocol;
+	}
 }

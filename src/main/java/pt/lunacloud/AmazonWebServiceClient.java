@@ -27,7 +27,6 @@ import pt.lunacloud.http.ExecutionContext;
 import pt.lunacloud.http.HttpMethodName;
 import pt.lunacloud.http.HttpRequest;
 
-
 /**
  * Abstract base class for Amazon Web Service Java clients.
  * <p>
@@ -36,195 +35,203 @@ import pt.lunacloud.http.HttpRequest;
  */
 public abstract class AmazonWebServiceClient {
 
-    /** The service endpoint to which this client will send requests. */
-    protected URI endpoint;
+	/** The service endpoint to which this client will send requests. */
+	protected URI endpoint;
 
-    /** The client configuration */
-    protected ClientConfiguration clientConfiguration;
+	/** The client configuration */
+	protected ClientConfiguration clientConfiguration;
 
-    /** Low level client for sending requests to AWS services. */
-    protected AmazonHttpClient client;
+	/** Low level client for sending requests to AWS services. */
+	protected AmazonHttpClient client;
 
-    /** Optional request handlers for additional request processing. */
-    protected final List<RequestHandler> requestHandlers;
-    
-    /** Optional offset (in seconds) to use when signing requests */
-    protected int timeOffset;
+	/** Optional request handlers for additional request processing. */
+	protected final List<RequestHandler> requestHandlers;
 
+	/** Optional offset (in seconds) to use when signing requests */
+	protected int timeOffset;
 
-    /**
-     * Constructs a new AmazonWebServiceClient object using the specified
-     * configuration.
-     *
-     * @param clientConfiguration
-     *            The client configuration for this client.
-     */
-    public AmazonWebServiceClient(ClientConfiguration clientConfiguration) {
-        this.clientConfiguration = clientConfiguration;
-        client = new AmazonHttpClient(clientConfiguration);
-        requestHandlers = Collections.synchronizedList(new LinkedList<RequestHandler>());
-    }
+	/**
+	 * Constructs a new AmazonWebServiceClient object using the specified
+	 * configuration.
+	 * 
+	 * @param clientConfiguration
+	 *            The client configuration for this client.
+	 */
+	public AmazonWebServiceClient(ClientConfiguration clientConfiguration) {
+		this.clientConfiguration = clientConfiguration;
+		client = new AmazonHttpClient(clientConfiguration);
+		requestHandlers = Collections
+		        .synchronizedList(new LinkedList<RequestHandler>());
+	}
 
-    /**
-     * Overrides the default endpoint for this client. Callers can use this
-     * method to control which AWS region they want to work with.
-     * <p>
-     * <b>This method is not threadsafe. Endpoints should be configured when the
-     * client is created and before any service requests are made. Changing it
-     * afterwards creates inevitable race conditions for any service requests in
-     * transit.</b>
-     * <p>
-     * Callers can pass in just the endpoint (ex: "ec2.amazonaws.com") or a full
-     * URL, including the protocol (ex: "https://ec2.amazonaws.com"). If the
-     * protocol is not specified here, the default protocol from this client's
-     * {@link ClientConfiguration} will be used, which by default is HTTPS.
-     * <p>
-     * For more information on using AWS regions with the AWS SDK for Java, and
-     * a complete list of all available endpoints for all AWS services, see: 
-     * <a href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
-     * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
-     * 
-     * @param endpoint
-     *            The endpoint (ex: "ec2.amazonaws.com") or a full URL,
-     *            including the protocol (ex: "https://ec2.amazonaws.com") of
-     *            the region specific AWS endpoint this client will communicate
-     *            with.
-     * @throws IllegalArgumentException
-     *             If any problems are detected with the specified endpoint.
-     */
-    public void setEndpoint(String endpoint) throws IllegalArgumentException {
-        /*
-         * If the endpoint doesn't explicitly specify a protocol to use, then
-         * we'll defer to the default protocol specified in the client
-         * configuration.
-         */
-        if (endpoint.contains("://") == false) {
-            endpoint = clientConfiguration.getProtocol().toString() + "://" + endpoint;
-        }
+	/**
+	 * Overrides the default endpoint for this client. Callers can use this
+	 * method to control which AWS region they want to work with.
+	 * <p>
+	 * <b>This method is not threadsafe. Endpoints should be configured when the
+	 * client is created and before any service requests are made. Changing it
+	 * afterwards creates inevitable race conditions for any service requests in
+	 * transit.</b>
+	 * <p>
+	 * Callers can pass in just the endpoint (ex: "ec2.amazonaws.com") or a full
+	 * URL, including the protocol (ex: "https://ec2.amazonaws.com"). If the
+	 * protocol is not specified here, the default protocol from this client's
+	 * {@link ClientConfiguration} will be used, which by default is HTTPS.
+	 * <p>
+	 * For more information on using AWS regions with the AWS SDK for Java, and
+	 * a complete list of all available endpoints for all AWS services, see: <a
+	 * href=
+	 * "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912"
+	 * > http://developer.amazonwebservices.com/connect/entry.jspa?externalID=
+	 * 3912</a>
+	 * 
+	 * @param endpoint
+	 *            The endpoint (ex: "ec2.amazonaws.com") or a full URL,
+	 *            including the protocol (ex: "https://ec2.amazonaws.com") of
+	 *            the region specific AWS endpoint this client will communicate
+	 *            with.
+	 * @throws IllegalArgumentException
+	 *             If any problems are detected with the specified endpoint.
+	 */
+	public void setEndpoint(String endpoint) throws IllegalArgumentException {
+		/*
+		 * If the endpoint doesn't explicitly specify a protocol to use, then
+		 * we'll defer to the default protocol specified in the client
+		 * configuration.
+		 */
+		if (endpoint.contains("://") == false) {
+			endpoint = clientConfiguration.getProtocol().toString() + "://"
+			        + endpoint;
+		}
 
-        try {
-            this.endpoint = new URI(endpoint);
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
+		try {
+			this.endpoint = new URI(endpoint);
+		} catch (URISyntaxException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
 
-    public void setConfiguration(ClientConfiguration clientConfiguration) {
-        this.clientConfiguration = clientConfiguration;
-        client = new AmazonHttpClient(clientConfiguration);
-    }
+	public void setConfiguration(ClientConfiguration clientConfiguration) {
+		this.clientConfiguration = clientConfiguration;
+		client = new AmazonHttpClient(clientConfiguration);
+	}
 
-    /**
-     * Shuts down this client object, releasing any resources that might be held
-     * open. This is an optional method, and callers are not expected to call
-     * it, but can if they want to explicitly release any open resources. Once a
-     * client has been shutdown, it should not be used to make any more
-     * requests.
-     */
-    public void shutdown() {
-        client.shutdown();
-    }
+	/**
+	 * Shuts down this client object, releasing any resources that might be held
+	 * open. This is an optional method, and callers are not expected to call
+	 * it, but can if they want to explicitly release any open resources. Once a
+	 * client has been shutdown, it should not be used to make any more
+	 * requests.
+	 */
+	public void shutdown() {
+		client.shutdown();
+	}
 
-    /**
-     * Converts a Request<T> object into an HttpRequest object. Copies all the
-     * headers, parameters, etc. from the Request into the new HttpRequest.
-     *
-     * @param request
-     *            The request to convert.
-     * @param methodName
-     *            The HTTP method (GET, PUT, DELETE, HEAD) to use in the
-     *            converted HttpRequest object.
-     *
-     * @return A new HttpRequest object created from the details of the
-     *         specified Request<T> object.
-     */
-    @Deprecated
-    protected <T> HttpRequest convertToHttpRequest(Request<T> request, HttpMethodName methodName) {
-        HttpRequest httpRequest = new HttpRequest(methodName);
-        for (Entry<String, String> parameter : request.getParameters().entrySet()) {
-            httpRequest.addParameter(parameter.getKey(), parameter.getValue());
-        }
+	/**
+	 * Converts a Request<T> object into an HttpRequest object. Copies all the
+	 * headers, parameters, etc. from the Request into the new HttpRequest.
+	 * 
+	 * @param request
+	 *            The request to convert.
+	 * @param methodName
+	 *            The HTTP method (GET, PUT, DELETE, HEAD) to use in the
+	 *            converted HttpRequest object.
+	 * 
+	 * @return A new HttpRequest object created from the details of the
+	 *         specified Request<T> object.
+	 */
+	@Deprecated
+	protected <T> HttpRequest convertToHttpRequest(Request<T> request,
+	        HttpMethodName methodName) {
+		HttpRequest httpRequest = new HttpRequest(methodName);
+		for (Entry<String, String> parameter : request.getParameters()
+		        .entrySet()) {
+			httpRequest.addParameter(parameter.getKey(), parameter.getValue());
+		}
 
-        for (Entry<String, String> parameter : request.getHeaders().entrySet()) {
-            httpRequest.addHeader(parameter.getKey(), parameter.getValue());
-        }
+		for (Entry<String, String> parameter : request.getHeaders().entrySet()) {
+			httpRequest.addHeader(parameter.getKey(), parameter.getValue());
+		}
 
-        httpRequest.setServiceName(request.getServiceName());
-        httpRequest.setEndpoint(request.getEndpoint());
-        httpRequest.setResourcePath(request.getResourcePath());
-        httpRequest.setOriginalRequest(request.getOriginalRequest());
+		httpRequest.setServiceName(request.getServiceName());
+		httpRequest.setEndpoint(request.getEndpoint());
+		httpRequest.setResourcePath(request.getResourcePath());
+		httpRequest.setOriginalRequest(request.getOriginalRequest());
 
-        return httpRequest;
-    }
+		return httpRequest;
+	}
 
-    /**
-     * Appends a request handler to the list of registered handlers that are run
-     * as part of a request's lifecycle.
-     *
-     * @param requestHandler
-     *            The new handler to add to the current list of request
-     *            handlers.
-     */
-    public void addRequestHandler(RequestHandler requestHandler) {
-    	requestHandlers.add(requestHandler);
-    }
+	/**
+	 * Appends a request handler to the list of registered handlers that are run
+	 * as part of a request's lifecycle.
+	 * 
+	 * @param requestHandler
+	 *            The new handler to add to the current list of request
+	 *            handlers.
+	 */
+	public void addRequestHandler(RequestHandler requestHandler) {
+		requestHandlers.add(requestHandler);
+	}
 
-    /**
-     * Removes a request handler from the list of registered handlers that are run
-     * as part of a request's lifecycle.
-     *
-     * @param requestHandler
-     *            The handler to remove from the current list of request
-     *            handlers.
-     */
-    public void removeRequestHandler(RequestHandler requestHandler) {
-        requestHandlers.remove(requestHandler);
-    }
+	/**
+	 * Removes a request handler from the list of registered handlers that are
+	 * run as part of a request's lifecycle.
+	 * 
+	 * @param requestHandler
+	 *            The handler to remove from the current list of request
+	 *            handlers.
+	 */
+	public void removeRequestHandler(RequestHandler requestHandler) {
+		requestHandlers.remove(requestHandler);
+	}
 
-    protected ExecutionContext createExecutionContext() {
-        ExecutionContext executionContext = new ExecutionContext(requestHandlers);
-        return executionContext;
-    }
-    
-    /**
-     * Sets the optional value for time offset for this client.  This
-     * value will be applied to all requests processed through this client.
-     * Value is in seconds, positive values imply the current clock is "fast",
-     * negative values imply clock is slow.
-     *
-     * @param timeOffset
-     *            The optional value for time offset (in seconds) for this client.
-     */
-    public void setTimeOffset(int timeOffset) {
-        this.timeOffset = timeOffset;
-    }
-    
-    /**
-     * Sets the optional value for time offset for this client.  This
-     * value will be applied to all requests processed through this client.
-     * Value is in seconds, positive values imply the current clock is "fast",
-     * negative values imply clock is slow.
-     *
-     * @param timeOffset
-     *            The optional value for time offset (in seconds) for this client.
-     * 
-     * @return the updated web service client
-     */
-    public AmazonWebServiceClient withTimeOffset(int timeOffset) {
-        setTimeOffset(timeOffset);
-        return this;
-    }
-    
-    /**
-     * Returns the optional value for time offset for this client.  This
-     * value will be applied to all requests processed through this client.
-     * Value is in seconds, positive values imply the current clock is "fast",
-     * negative values imply clock is slow.
-     *
-     * @return The optional value for time offset (in seconds) for this client.
-     */
-    public int getTimeOffset() {
-        return timeOffset;
-    }
+	protected ExecutionContext createExecutionContext() {
+		ExecutionContext executionContext = new ExecutionContext(
+		        requestHandlers);
+		return executionContext;
+	}
+
+	/**
+	 * Sets the optional value for time offset for this client. This value will
+	 * be applied to all requests processed through this client. Value is in
+	 * seconds, positive values imply the current clock is "fast", negative
+	 * values imply clock is slow.
+	 * 
+	 * @param timeOffset
+	 *            The optional value for time offset (in seconds) for this
+	 *            client.
+	 */
+	public void setTimeOffset(int timeOffset) {
+		this.timeOffset = timeOffset;
+	}
+
+	/**
+	 * Sets the optional value for time offset for this client. This value will
+	 * be applied to all requests processed through this client. Value is in
+	 * seconds, positive values imply the current clock is "fast", negative
+	 * values imply clock is slow.
+	 * 
+	 * @param timeOffset
+	 *            The optional value for time offset (in seconds) for this
+	 *            client.
+	 * 
+	 * @return the updated web service client
+	 */
+	public AmazonWebServiceClient withTimeOffset(int timeOffset) {
+		setTimeOffset(timeOffset);
+		return this;
+	}
+
+	/**
+	 * Returns the optional value for time offset for this client. This value
+	 * will be applied to all requests processed through this client. Value is
+	 * in seconds, positive values imply the current clock is "fast", negative
+	 * values imply clock is slow.
+	 * 
+	 * @return The optional value for time offset (in seconds) for this client.
+	 */
+	public int getTimeOffset() {
+		return timeOffset;
+	}
 
 }

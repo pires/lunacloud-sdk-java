@@ -19,65 +19,61 @@ import java.util.Map;
 
 import pt.lunacloud.auth.LunacloudCredentials;
 
-
 /**
  * Base class for all user facing web service request objects.
  */
 public abstract class AmazonWebServiceRequest {
 
-    /**
-     * Arbitrary options storage for individual {@link AmazonWebServiceRequest}s. This
-     * field is not intended to be used by clients.
-     */
-    private final RequestClientOptions requestClientOptions = new RequestClientOptions();
+	/**
+	 * Arbitrary options storage for individual {@link AmazonWebServiceRequest}
+	 * s. This field is not intended to be used by clients.
+	 */
+	private final RequestClientOptions requestClientOptions = new RequestClientOptions();
 
-    /**
-     * The optional credentials to use for this request - overrides the
-     * default credentials set at the client level.
-     */
+	/**
+	 * The optional credentials to use for this request - overrides the default
+	 * credentials set at the client level.
+	 */
 	private LunacloudCredentials credentials;
-
 
 	/**
 	 * Sets the optional credentials to use for this request, overriding the
 	 * default credentials set at the client level.
-	 *
+	 * 
 	 * @param credentials
 	 *            The optional AWS security credentials to use for this request,
 	 *            overriding the default credentials set at the client level.
 	 */
-    public void setRequestCredentials(LunacloudCredentials credentials) {
+	public void setRequestCredentials(LunacloudCredentials credentials) {
 		this.credentials = credentials;
-    }
+	}
 
 	/**
 	 * Returns the optional credentials to use to sign this request, overriding
 	 * the default credentials set at the client level.
-	 *
+	 * 
 	 * @return The optional credentials to use to sign this request, overriding
 	 *         the default credentials set at the client level.
 	 */
-    public LunacloudCredentials getRequestCredentials() {
-    	return credentials;
-    }
+	public LunacloudCredentials getRequestCredentials() {
+		return credentials;
+	}
 
+	/**
+	 * Internal only method for accessing private, internal request parameters.
+	 * Not intended for direct use by callers.
+	 * 
+	 * @return private, internal request parameter information.
+	 */
+	public Map<String, String> copyPrivateRequestParameters() {
+		return new HashMap<String, String>();
+	}
 
-    /**
-     * Internal only method for accessing private, internal request parameters.
-     * Not intended for direct use by callers.
-     *
-     * @return private, internal request parameter information.
-     */
-    public Map<String, String> copyPrivateRequestParameters() {
-        return new HashMap<String, String>();
-    }
-
-    /**
-     * Gets the options stored with this request object. Intended for internal
-     * use only.
-     */
-    public RequestClientOptions getRequestClientOptions() {
-        return requestClientOptions;
-    }
+	/**
+	 * Gets the options stored with this request object. Intended for internal
+	 * use only.
+	 */
+	public RequestClientOptions getRequestClientOptions() {
+		return requestClientOptions;
+	}
 }
-

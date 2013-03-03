@@ -34,29 +34,29 @@ package pt.lunacloud;
  * @see AmazonServiceException
  */
 public class AmazonClientException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Creates a new AmazonClientException with the specified message, and root
-     * cause.
-     * 
-     * @param message
-     *            An error message describing why this exception was thrown.
-     * @param t
-     *            The underlying cause of this exception.
-     */
-    public AmazonClientException(String message, Throwable t) {
-        super(message, t);
-    }
+	/**
+	 * Creates a new AmazonClientException with the specified message, and root
+	 * cause.
+	 * 
+	 * @param message
+	 *            An error message describing why this exception was thrown.
+	 * @param t
+	 *            The underlying cause of this exception.
+	 */
+	public AmazonClientException(String message, Throwable t) {
+		super(message, t);
+	}
 
-    /**
-     * Creates a new AmazonClientException with the specified message.
-     * 
-     * @param message
-     *            An error message describing why this exception was thrown.
-     */
-    public AmazonClientException(String message) {
-        super(message);
-    }
+	/**
+	 * Creates a new AmazonClientException with the specified message.
+	 * 
+	 * @param message
+	 *            An error message describing why this exception was thrown.
+	 */
+	public AmazonClientException(String message) {
+		super(message);
+	}
 
 }

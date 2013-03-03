@@ -16,7 +16,7 @@ package pt.lunacloud.auth.policy.conditions;
 
 import pt.lunacloud.auth.policy.Condition;
 import pt.lunacloud.auth.policy.conditions.StringCondition.StringComparisonType;
-import pt.lunacloud.services.s3.model.CannedAccessControlList;
+import pt.lunacloud.services.storage.model.CannedAccessControlList;
 
 /**
  * Factory for creating access control policy conditions specific to Amazon S3.

@@ -26,48 +26,49 @@ import java.util.Map;
  * logger in the AWS SDK for Java.
  */
 public class ResponseMetadata {
-    public static final String AWS_REQUEST_ID = "AWS_REQUEST_ID";
+	public static final String AWS_REQUEST_ID = "AWS_REQUEST_ID";
 
-    protected final Map<String, String> metadata;
+	protected final Map<String, String> metadata;
 
-    /**
-     * Creates a new ResponseMetadata object from a specified map of raw
-     * metadata information.
-     * 
-     * @param metadata
-     *            The raw metadata for the new ResponseMetadata object.
-     */
-    public ResponseMetadata(Map<String, String> metadata) {
-        this.metadata = metadata;
-    }
+	/**
+	 * Creates a new ResponseMetadata object from a specified map of raw
+	 * metadata information.
+	 * 
+	 * @param metadata
+	 *            The raw metadata for the new ResponseMetadata object.
+	 */
+	public ResponseMetadata(Map<String, String> metadata) {
+		this.metadata = metadata;
+	}
 
-    /**
-     * Creates a new ResponseMetadata object from an existing ResponseMetadata
-     * object.
-     *
-     * @param originalResponseMetadata
-     *            The ResponseMetadata object from which to create the new
-     *            object.
-     */
-    public ResponseMetadata(ResponseMetadata originalResponseMetadata) {
-        this(originalResponseMetadata.metadata);
-    }
+	/**
+	 * Creates a new ResponseMetadata object from an existing ResponseMetadata
+	 * object.
+	 * 
+	 * @param originalResponseMetadata
+	 *            The ResponseMetadata object from which to create the new
+	 *            object.
+	 */
+	public ResponseMetadata(ResponseMetadata originalResponseMetadata) {
+		this(originalResponseMetadata.metadata);
+	}
 
-    /**
-     * Returns the AWS request ID contained in this response metadata object.
-     * AWS request IDs can be used in the event a service call isn't working as
-     * expected and you need to work with AWS support to debug an issue.
-     *
-     * @return The AWS request ID contained in this response metadata object.
-     */
-    public String getRequestId() {
-        return metadata.get(AWS_REQUEST_ID);
-    }
+	/**
+	 * Returns the AWS request ID contained in this response metadata object.
+	 * AWS request IDs can be used in the event a service call isn't working as
+	 * expected and you need to work with AWS support to debug an issue.
+	 * 
+	 * @return The AWS request ID contained in this response metadata object.
+	 */
+	public String getRequestId() {
+		return metadata.get(AWS_REQUEST_ID);
+	}
 
-    @Override
-    public String toString() {
-        if (metadata == null) return "{}";
-        return metadata.toString();
-    }
+	@Override
+	public String toString() {
+		if (metadata == null)
+			return "{}";
+		return metadata.toString();
+	}
 
 }
