@@ -25,7 +25,6 @@
 
   <properties>
     <jackson.version>1.8.9</jackson.version>
-    <spring.version>3.0.7.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -59,57 +58,6 @@
       <scope>compile</scope>
     </dependency>
 
-
-    <!-- JavaMail is only needed if you want to use the JavaMail provider 
-      for Amazon Simple Email Service -->
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.4</version>
-      <optional>true</optional>
-    </dependency>
-
-
-    <!-- The Amazon Simple Workflow Java Flow framework requires additional 
-      dependencies -->
-    <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker</artifactId>
-      <version>2.3.9</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>${spring.version}</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>${spring.version}</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
-      <version>1.6.0</version>
-      <optional>true</optional>
-    </dependency>
-
-
     <!-- JDK 1.6 and above include StAX support by default, so these two 
       dependencies are only needed for compiling/running against a 1.5 JVM. -->
     <dependency>
@@ -122,15 +70,6 @@
       <groupId>stax</groupId>
       <artifactId>stax</artifactId>
       <version>1.2.0</version>
-      <optional>true</optional>
-    </dependency>
-
-    <!-- JUnit is needed to compile the support classes for the workflow 
-      service -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
       <optional>true</optional>
     </dependency>
   </dependencies>
