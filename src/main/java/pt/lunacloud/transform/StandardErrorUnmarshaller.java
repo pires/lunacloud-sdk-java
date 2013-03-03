@@ -16,8 +16,8 @@ package pt.lunacloud.transform;
 
 import org.w3c.dom.Node;
 
-import pt.lunacloud.AmazonServiceException;
-import pt.lunacloud.AmazonServiceException.ErrorType;
+import pt.lunacloud.LunacloudServiceException;
+import pt.lunacloud.LunacloudServiceException.ErrorType;
 import pt.lunacloud.util.XpathUtils;
 
 
@@ -45,20 +45,20 @@ public class StandardErrorUnmarshaller extends AbstractErrorUnmarshaller<Node> {
      *            The class of AmazonServiceException to create and populate
      *            when unmarshalling the error message.
      */
-    protected StandardErrorUnmarshaller(Class<? extends AmazonServiceException> exceptionClass) {
+    protected StandardErrorUnmarshaller(Class<? extends LunacloudServiceException> exceptionClass) {
         super(exceptionClass);
     }
 
     /**
      * @see pt.lunacloud.transform.Unmarshaller#unmarshall(java.lang.Object)
      */
-    public AmazonServiceException unmarshall(Node in) throws Exception {
+    public LunacloudServiceException unmarshall(Node in) throws Exception {
         String errorCode = parseErrorCode(in);
         String errorType = XpathUtils.asString("ErrorResponse/Error/Type", in);
         String requestId = XpathUtils.asString("ErrorResponse/RequestId", in);
         String message = XpathUtils.asString("ErrorResponse/Error/Message", in);
 
-        AmazonServiceException ase = newException(message);
+        LunacloudServiceException ase = newException(message);
         ase.setErrorCode(errorCode);
         ase.setRequestId(requestId);
 

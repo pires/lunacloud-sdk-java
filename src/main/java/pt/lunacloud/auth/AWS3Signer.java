@@ -28,7 +28,7 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.util.DateUtils;
 import pt.lunacloud.util.HttpUtils;
@@ -59,7 +59,7 @@ public class AWS3Signer extends AbstractAWSSigner {
      * @param request
      *            The request to sign.
      */
-    public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException {
+    public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException {
         // annonymous credentials, don't sign
         if ( credentials instanceof AnonymousAWSCredentials ) {
             return;
@@ -96,7 +96,7 @@ public class AWS3Signer extends AbstractAWSSigner {
             try {
                 bytesToSign = stringToSign.getBytes("UTF-8");
             } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to serialize string to bytes: " + e.getMessage(), e);
+                throw new LunacloudClientException("Unable to serialize string to bytes: " + e.getMessage(), e);
             }
         } else {
             /*
@@ -190,7 +190,7 @@ public class AWS3Signer extends AbstractAWSSigner {
         return builder.toString();
     }
 
-    protected boolean shouldUseHttpsScheme(Request<?> request) throws AmazonClientException {
+    protected boolean shouldUseHttpsScheme(Request<?> request) throws LunacloudClientException {
         try {
             String protocol = request.getEndpoint().toURL().getProtocol().toLowerCase();
             if (protocol.equals("http")) {
@@ -198,11 +198,11 @@ public class AWS3Signer extends AbstractAWSSigner {
             } else if (protocol.equals("https")) {
                 return true;
             } else {
-                throw new AmazonClientException("Unknown request endpoint protocol " +
+                throw new LunacloudClientException("Unknown request endpoint protocol " +
                         "encountered while signing request: " + protocol);
             }
         } catch (MalformedURLException e) {
-            throw new AmazonClientException("Unable to parse request endpoint during signing", e);
+            throw new LunacloudClientException("Unable to parse request endpoint during signing", e);
         }
     }
 

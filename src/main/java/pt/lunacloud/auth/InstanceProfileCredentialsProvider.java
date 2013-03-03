@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.internal.EC2MetadataClient;
 import pt.lunacloud.util.DateUtils;
 import pt.lunacloud.util.json.JSONException;
@@ -37,7 +37,7 @@ public class InstanceProfileCredentialsProvider implements LunacloudCredentialsP
     public LunacloudCredentials getCredentials() {
         if (needsToLoadCredentials()) loadCredentials();
         if (expired()) {
-            throw new AmazonClientException("The credentials received from the Amazon EC2 metadata service have expired");
+            throw new LunacloudClientException("The credentials received from the Amazon EC2 metadata service have expired");
         }
 
         return credentials;
@@ -97,11 +97,11 @@ public class InstanceProfileCredentialsProvider implements LunacloudCredentialsP
                 credentialsExpiration = new DateUtils().parseIso8601Date(expiration);
             }
         } catch (IOException e) {
-            throw new AmazonClientException("Unable to load credentials from Amazon EC2 metadata service", e);
+            throw new LunacloudClientException("Unable to load credentials from Amazon EC2 metadata service", e);
         } catch (JSONException e) {
-            throw new AmazonClientException("Unable to parse credentials from Amazon EC2 metadata service", e);
+            throw new LunacloudClientException("Unable to parse credentials from Amazon EC2 metadata service", e);
         } catch (ParseException e) {
-            throw new AmazonClientException("Unable to parse credentials expiration date from Amazon EC2 metadata service", e);
+            throw new LunacloudClientException("Unable to parse credentials expiration date from Amazon EC2 metadata service", e);
         }
     }
 

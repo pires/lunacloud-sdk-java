@@ -17,7 +17,7 @@ package pt.lunacloud.auth;
 import java.io.IOException;
 import java.io.InputStream;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 /**
  * {@link LunacloudCredentialsProvider} implementation that loads Lunacloud
@@ -81,7 +81,7 @@ public class ClasspathPropertiesFileCredentialsProvider implements
 		InputStream inputStream = getClass().getResourceAsStream(
 		        credentialsFilePath);
 		if (inputStream == null) {
-			throw new AmazonClientException(
+			throw new LunacloudClientException(
 			        "Unable to load Lunacloud credentials from the "
 			                + credentialsFilePath + " file on the classpath");
 		}
@@ -89,7 +89,7 @@ public class ClasspathPropertiesFileCredentialsProvider implements
 		try {
 			return new PropertiesCredentials(inputStream);
 		} catch (IOException e) {
-			throw new AmazonClientException(
+			throw new LunacloudClientException(
 			        "Unable to load Lunacloud credentials from the "
 			                + credentialsFilePath + " file on the classpath", e);
 		}

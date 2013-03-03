@@ -14,8 +14,8 @@
  */
 package pt.lunacloud.services.storage.transfer;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.services.storage.model.ProgressListener;
 
 /**
@@ -65,10 +65,10 @@ public interface Transfer {
      * Waits for this transfer to complete. This is a blocking call; the current
      * thread is suspended until this transfer completes.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors were encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      * @throws InterruptedException
@@ -76,7 +76,7 @@ public interface Transfer {
      *             to complete.
      */
     public void waitForCompletion()
-            throws AmazonClientException, AmazonServiceException, InterruptedException;
+            throws LunacloudClientException, LunacloudServiceException, InterruptedException;
     
     /**
      * Waits for this transfer to finish and returns any error that occurred, or
@@ -92,7 +92,7 @@ public interface Transfer {
      *             If this thread is interrupted while waiting for the transfer
      *             to complete.
      */
-    public AmazonClientException waitForException() throws InterruptedException;
+    public LunacloudClientException waitForException() throws InterruptedException;
     
     /**
      * Returns a human-readable description of this transfer.

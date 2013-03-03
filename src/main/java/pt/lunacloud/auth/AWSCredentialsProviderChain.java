@@ -20,7 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 
 /**
@@ -75,7 +75,7 @@ public class AWSCredentialsProviderChain implements LunacloudCredentialsProvider
             }
         }
 
-        throw new AmazonClientException("Unable to load AWS credentials from any provider in the chain");
+        throw new LunacloudClientException("Unable to load AWS credentials from any provider in the chain");
     }
 
     public void refresh() {

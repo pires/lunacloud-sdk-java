@@ -27,7 +27,7 @@ import java.util.SimpleTimeZone;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.util.AwsHostNameUtils;
 import pt.lunacloud.util.BinaryUtils;
@@ -63,7 +63,7 @@ public class AWS4Signer extends AbstractAWSSigner {
     /* (non-Javadoc)
      * @see com.amazonaws.auth.Signer#sign(com.amazonaws.Request, com.amazonaws.auth.AWSCredentials)
      */
-    public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException {
+    public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException {
         // annonymous credentials, don't sign
         if ( credentials instanceof AnonymousAWSCredentials ) {
             return;
@@ -103,7 +103,7 @@ public class AWS4Signer extends AbstractAWSSigner {
         try {
             payloadStream.reset();
         } catch (IOException e) {
-            throw new AmazonClientException("Unable to reset stream after calculating AWS4 signature", e);
+            throw new LunacloudClientException("Unable to reset stream after calculating AWS4 signature", e);
         }
 
         request.addHeader("X-Amz-Date", dateTime);

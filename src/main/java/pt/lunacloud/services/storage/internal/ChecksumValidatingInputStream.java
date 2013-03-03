@@ -22,7 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 
 /**
@@ -117,7 +117,7 @@ public class ChecksumValidatingInputStream extends FilterInputStream {
 
         byte[] clientSideHash = digestInputStream.getMessageDigest().digest();
         if (!Arrays.equals(clientSideHash, expectedChecksum)) {
-            throw new AmazonClientException("Unable to verify integrity of data download.  " +
+            throw new LunacloudClientException("Unable to verify integrity of data download.  " +
                     "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
                     "The data read from '" + sourceObject + "' may be corrupt.");
         }

@@ -22,7 +22,7 @@ import java.util.SortedMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 
 
@@ -46,7 +46,7 @@ public class QueryStringSigner extends AbstractAWSSigner implements Signer {
 	 * @param credentials
 	 *            The credentials used to use to sign the request.
 	 */
-	public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException {
+	public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException {
         sign(request, SignatureVersion.V2, SigningAlgorithm.HmacSHA256, credentials);
 	}
 
@@ -64,7 +64,7 @@ public class QueryStringSigner extends AbstractAWSSigner implements Signer {
      * @param algorithm
      *            signature algorithm. "HmacSHA256" is recommended.
      */
-    public void sign(Request<?> request, SignatureVersion version, SigningAlgorithm algorithm, LunacloudCredentials credentials) throws AmazonClientException {
+    public void sign(Request<?> request, SignatureVersion version, SigningAlgorithm algorithm, LunacloudCredentials credentials) throws LunacloudClientException {
     	// annonymous credentials, don't sign
     	if ( credentials instanceof AnonymousAWSCredentials ) {
     		return;
@@ -86,7 +86,7 @@ public class QueryStringSigner extends AbstractAWSSigner implements Signer {
             request.addParameter("SignatureMethod", algorithm.toString());
             stringToSign = calculateStringToSignV2(request);
         } else {
-            throw new AmazonClientException("Invalid Signature Version specified");
+            throw new LunacloudClientException("Invalid Signature Version specified");
         }
 
         String signatureValue = signAndBase64Encode(stringToSign, sanitizedCredentials.getLunacloudSecretKey(), algorithm);
@@ -123,10 +123,10 @@ public class QueryStringSigner extends AbstractAWSSigner implements Signer {
      *
      * @return String to sign
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If the string to sign cannot be calculated.
      */
-    private String calculateStringToSignV2(Request<?> request) throws AmazonClientException {
+    private String calculateStringToSignV2(Request<?> request) throws LunacloudClientException {
         URI endpoint = request.getEndpoint();
         Map<String, String> parameters = request.getParameters();
 

@@ -16,7 +16,7 @@ package pt.lunacloud.services.storage.model.transform;
 
 import java.util.List;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.services.storage.internal.Constants;
 import pt.lunacloud.services.storage.internal.ServiceUtils;
 import pt.lunacloud.services.storage.internal.XmlWriter;
@@ -224,7 +224,7 @@ public class BucketConfigurationXmlFactory {
           </Rule>
     </LifecycleConfiguration>
     */
-    public byte[] convertToXmlByteArray(BucketLifecycleConfiguration config) throws AmazonClientException {
+    public byte[] convertToXmlByteArray(BucketLifecycleConfiguration config) throws LunacloudClientException {
 
         XmlWriter xml = new XmlWriter();
         xml.start("LifecycleConfiguration");
@@ -255,7 +255,7 @@ public class BucketConfigurationXmlFactory {
              </CORSRule>
        </CORSConfiguration>
      */
-    public byte[] convertToXmlByteArray(BucketCrossOriginConfiguration config) throws AmazonClientException {
+    public byte[] convertToXmlByteArray(BucketCrossOriginConfiguration config) throws LunacloudClientException {
 
         XmlWriter xml = new XmlWriter();
         xml.start("CORSConfiguration", "xmlns", Constants.XML_NAMESPACE);
@@ -404,7 +404,7 @@ public class BucketConfigurationXmlFactory {
          </TagSet>
         </Tagging>
     */
-    public byte[] convertToXmlByteArray(BucketTaggingConfiguration config) throws AmazonClientException {
+    public byte[] convertToXmlByteArray(BucketTaggingConfiguration config) throws LunacloudClientException {
 
         XmlWriter xml = new XmlWriter();
         xml.start("Tagging");

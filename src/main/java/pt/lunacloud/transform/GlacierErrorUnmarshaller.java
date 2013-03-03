@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.transform;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.transform.JsonErrorUnmarshaller;
 import pt.lunacloud.util.json.JSONObject;
 
@@ -22,7 +22,7 @@ public class GlacierErrorUnmarshaller extends JsonErrorUnmarshaller {
 
     public GlacierErrorUnmarshaller() {}
 
-    protected GlacierErrorUnmarshaller(Class<? extends AmazonServiceException> exceptionClass) {
+    protected GlacierErrorUnmarshaller(Class<? extends LunacloudServiceException> exceptionClass) {
         super(exceptionClass);
     }
 

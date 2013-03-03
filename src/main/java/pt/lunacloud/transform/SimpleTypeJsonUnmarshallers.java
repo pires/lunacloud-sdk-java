@@ -27,7 +27,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.util.DateUtils;
 
 
@@ -189,7 +189,7 @@ public class SimpleTypeJsonUnmarshallers {
             	return new Date(number.longValue() * 1000);
             } catch (ParseException e) {
                 String errorMessage = "Unable to parse date '" + dateString + "':  " + e.getMessage();
-                throw new AmazonClientException(errorMessage, e);
+                throw new LunacloudClientException(errorMessage, e);
             }
         }
 
@@ -213,7 +213,7 @@ public class SimpleTypeJsonUnmarshallers {
                 byte[] decodedBytes = Base64.decodeBase64(base64EncodedBytes);
                 return ByteBuffer.wrap(decodedBytes);
             } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to unmarshall XML data into a ByteBuffer", e);
+                throw new LunacloudClientException("Unable to unmarshall XML data into a ByteBuffer", e);
             }
         }
 

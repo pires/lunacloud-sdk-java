@@ -18,8 +18,8 @@ import java.lang.reflect.Constructor;
 
 import org.w3c.dom.Node;
 
-import pt.lunacloud.AmazonServiceException;
-import pt.lunacloud.AmazonServiceException.ErrorType;
+import pt.lunacloud.LunacloudServiceException;
+import pt.lunacloud.LunacloudServiceException.ErrorType;
 import pt.lunacloud.util.XpathUtils;
 
 
@@ -27,20 +27,20 @@ import pt.lunacloud.util.XpathUtils;
  * Unmarshalls an AWS error response into an AmazonServiceException, or
  * optionally, a subclass of AmazonServiceException if this class is extended.
  */
-public class LegacyErrorUnmarshaller implements Unmarshaller<AmazonServiceException, Node> {
+public class LegacyErrorUnmarshaller implements Unmarshaller<LunacloudServiceException, Node> {
     /**
      * The type of AmazonServiceException that will be instantiated. Subclasses
      * specialized for a specific type of exception can control this through the
      * protected constructor.
      */
-    private final Class<? extends AmazonServiceException> exceptionClass;
+    private final Class<? extends LunacloudServiceException> exceptionClass;
 
     /**
      * Constructs a new unmarshaller that will unmarshall AWS error responses as
      * a generic AmazonServiceException object.
      */
     public LegacyErrorUnmarshaller() {
-        this(AmazonServiceException.class);
+        this(LunacloudServiceException.class);
     }
 
     /**
@@ -52,21 +52,21 @@ public class LegacyErrorUnmarshaller implements Unmarshaller<AmazonServiceExcept
      *            The class of AmazonServiceException to create and populate
      *            when unmarshalling the AWS error response.
      */
-    protected LegacyErrorUnmarshaller(Class<? extends AmazonServiceException> exceptionClass) {
+    protected LegacyErrorUnmarshaller(Class<? extends LunacloudServiceException> exceptionClass) {
         this.exceptionClass = exceptionClass;
     }
 
     /* (non-Javadoc)
      * @see com.amazonaws.transform.Unmarshaller#unmarshall(java.lang.Object)
      */
-    public AmazonServiceException unmarshall(Node in) throws Exception {
+    public LunacloudServiceException unmarshall(Node in) throws Exception {
         String errorCode = parseErrorCode(in);
         String message = XpathUtils.asString("Response/Errors/Error/Message", in);
         String requestId = XpathUtils.asString("Response/RequestID", in);
         String errorType = XpathUtils.asString("Response/Errors/Error/Type", in);
 
-        Constructor<? extends AmazonServiceException> constructor = exceptionClass.getConstructor(String.class);
-        AmazonServiceException ase = constructor.newInstance(message);
+        Constructor<? extends LunacloudServiceException> constructor = exceptionClass.getConstructor(String.class);
+        LunacloudServiceException ase = constructor.newInstance(message);
         ase.setErrorCode(errorCode);
         ase.setRequestId(requestId);
 

@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.services.storage.LunacloudStorage;
 import pt.lunacloud.services.storage.model.CompleteMultipartUploadRequest;
 import pt.lunacloud.services.storage.model.CompleteMultipartUploadResult;
@@ -141,7 +141,7 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
 		} catch (CancellationException e) {
 			transfer.setState(TransferState.Canceled);
 			fireProgressEvent(ProgressEvent.CANCELED_EVENT_CODE);
-			throw new AmazonClientException("Upload canceled");
+			throw new LunacloudClientException("Upload canceled");
 		} catch (Exception e) {
 			transfer.setState(TransferState.Failed);
 			fireProgressEvent(ProgressEvent.FAILED_EVENT_CODE);
@@ -243,7 +243,7 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
 			try {
 				partETags.add(future.get());
 			} catch (Exception e) {
-				throw new AmazonClientException("Unable to upload part: "
+				throw new LunacloudClientException("Unable to upload part: "
 				        + e.getCause().getMessage(), e.getCause());
 			}
 		}

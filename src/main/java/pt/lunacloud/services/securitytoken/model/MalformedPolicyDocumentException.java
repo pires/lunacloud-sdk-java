@@ -14,14 +14,14 @@
  */
 package pt.lunacloud.services.securitytoken.model;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 
 /**
  * <p>
  * The request was rejected because the policy document was malformed. The error message describes the specific error.
  * </p>
  */        
-public class MalformedPolicyDocumentException extends AmazonServiceException {
+public class MalformedPolicyDocumentException extends LunacloudServiceException {
     private static final long serialVersionUID = 1L;
     
     /**

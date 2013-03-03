@@ -14,8 +14,8 @@
  */
 package pt.lunacloud.services.storage.transfer;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.services.storage.transfer.model.UploadResult;
 
 /**
@@ -37,10 +37,10 @@ public interface Upload extends Transfer {
      * 
      * @return The result of this transfer.
      * 
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors were encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      * @throws InterruptedException
@@ -48,5 +48,5 @@ public interface Upload extends Transfer {
      *             complete.
      */
     public UploadResult waitForUploadResult() 
-            throws AmazonClientException, AmazonServiceException, InterruptedException;
+            throws LunacloudClientException, LunacloudServiceException, InterruptedException;
 }

@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.services.storage.model.transform;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.services.storage.internal.XmlWriter;
 import pt.lunacloud.services.storage.model.DeleteObjectsRequest;
 import pt.lunacloud.services.storage.model.DeleteObjectsRequest.KeyVersion;
@@ -32,7 +32,7 @@ public class MultiObjectDeleteXmlFactory {
      * @param rq
      *            The {@link DeleteObjectsRequest}
      */
-    public byte[] convertToXmlByteArray(DeleteObjectsRequest rq) throws AmazonClientException {
+    public byte[] convertToXmlByteArray(DeleteObjectsRequest rq) throws LunacloudClientException {
         
         XmlWriter xml = new XmlWriter();
         xml.start("Delete");

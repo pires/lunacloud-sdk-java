@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2013 Lunacloud.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,26 +15,26 @@
 package pt.lunacloud;
 
 /**
- * Extension of AmazonClientException that represents an error response returned
- * by an Amazon web service. Receiving an exception of this type indicates that
- * the caller's request was correctly transmitted to the service, but for some
- * reason, the service was not able to process it, and returned an error
- * response instead.
+ * Extension of LunacloudClientException that represents an error response
+ * returned by an Lunacloud web service. Receiving an exception of this type
+ * indicates that the caller's request was correctly transmitted to the service,
+ * but for some reason, the service was not able to process it, and returned an
+ * error response instead.
  * <p>
- * AmazonServiceException provides callers several pieces of information that
+ * LunacloudServiceException provides callers several pieces of information that
  * can be used to obtain more information about the error and why it occurred.
  * In particular, the errorType field can be used to determine if the caller's
  * request was invalid, or the service encountered an error on the server side
  * while processing it.
  */
-public class AmazonServiceException extends AmazonClientException {
+public class LunacloudServiceException extends LunacloudClientException {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Indicates who is responsible (if known) for a failed request.
 	 * 
 	 * <p>
-	 * For example, if a client is using an invalid AWS access key, the returned
+	 * For example, if a client is using an invalid access key, the returned
 	 * exception will indicate that there is an error in the request the caller
 	 * is sending. Retrying that same request will *not* result in a successful
 	 * response. The Client ErrorType indicates that there is a problem in the
@@ -62,15 +62,14 @@ public class AmazonServiceException extends AmazonClientException {
 	}
 
 	/**
-	 * The unique AWS identifier for the service request the caller made. The
-	 * AWS request ID can uniquely identify the AWS request, and is used for
-	 * reporting an error to AWS support team.
+	 * The unique identifier for the service request the caller made. The
+	 * request ID can uniquely identify the request, and is used for reporting
+	 * an error to Lunacloud support team.
 	 */
 	private String requestId;
 
 	/**
-	 * The AWS error code represented by this exception (ex:
-	 * InvalidParameterValue).
+	 * The error code represented by this exception (ex: InvalidParameterValue).
 	 */
 	private String errorCode;
 
@@ -86,22 +85,22 @@ public class AmazonServiceException extends AmazonClientException {
 	private int statusCode;
 
 	/**
-	 * The name of the Amazon service that sent this error response.
+	 * The name of the Lunacloud service that sent this error response.
 	 */
 	private String serviceName;
 
 	/**
-	 * Constructs a new AmazonServiceException with the specified message.
+	 * Constructs a new LunacloudServiceException with the specified message.
 	 * 
 	 * @param message
 	 *            An error message describing what went wrong.
 	 */
-	public AmazonServiceException(String message) {
+	public LunacloudServiceException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Constructs a new AmazonServiceException with the specified message and
+	 * Constructs a new LunacloudServiceException with the specified message and
 	 * exception indicating the root cause.
 	 * 
 	 * @param message
@@ -109,12 +108,12 @@ public class AmazonServiceException extends AmazonClientException {
 	 * @param cause
 	 *            The root exception that caused this exception to be thrown.
 	 */
-	public AmazonServiceException(String message, Exception cause) {
+	public LunacloudServiceException(String message, Exception cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Sets the AWS requestId for this exception.
+	 * Sets the requestId for this exception.
 	 * 
 	 * @param requestId
 	 *            The unique identifier for the service request the caller made.
@@ -124,11 +123,11 @@ public class AmazonServiceException extends AmazonClientException {
 	}
 
 	/**
-	 * Returns the AWS request ID that uniquely identifies the service request
-	 * the caller made.
+	 * Returns the request ID that uniquely identifies the service request the
+	 * caller made.
 	 * 
-	 * @return The AWS request ID that uniquely identifies the service request
-	 *         the caller made.
+	 * @return The request ID that uniquely identifies the service request the
+	 *         caller made.
 	 */
 	public String getRequestId() {
 		return requestId;
@@ -154,19 +153,19 @@ public class AmazonServiceException extends AmazonClientException {
 	}
 
 	/**
-	 * Sets the AWS error code represented by this exception.
+	 * Sets the error code represented by this exception.
 	 * 
 	 * @param errorCode
-	 *            The AWS error code represented by this exception.
+	 *            The error code represented by this exception.
 	 */
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}
 
 	/**
-	 * Returns the AWS error code represented by this exception.
+	 * Returns the error code represented by this exception.
 	 * 
-	 * @return The AWS error code represented by this exception.
+	 * @return The error code represented by this exception.
 	 */
 	public String getErrorCode() {
 		return errorCode;
@@ -221,16 +220,16 @@ public class AmazonServiceException extends AmazonClientException {
 
 	/**
 	 * Returns a string summary of the details of this exception including the
-	 * HTTP status code, AWS request ID, AWS error code and error message.
+	 * HTTP status code, request ID, error code and error message.
 	 * 
 	 * @see java.lang.Throwable#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Status Code: " + getStatusCode() + ", " + "AWS Service: "
-		        + getServiceName() + ", " + "AWS Request ID: " + getRequestId()
-		        + ", " + "AWS Error Code: " + getErrorCode() + ", "
-		        + "AWS Error Message: " + getMessage();
+		return "Status Code: " + getStatusCode() + ", " + "Service: "
+		        + getServiceName() + ", " + "Request ID: " + getRequestId()
+		        + ", " + "Error Code: " + getErrorCode() + ", "
+		        + "Error Message: " + getMessage();
 	}
 
 }

@@ -40,14 +40,14 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.AmazonWebServiceRequest;
 import pt.lunacloud.AmazonWebServiceResponse;
 import pt.lunacloud.ClientConfiguration;
 import pt.lunacloud.Request;
 import pt.lunacloud.ResponseMetadata;
-import pt.lunacloud.AmazonServiceException.ErrorType;
+import pt.lunacloud.LunacloudServiceException.ErrorType;
 import pt.lunacloud.handlers.RequestHandler;
 import pt.lunacloud.internal.CRC32MismatchException;
 import pt.lunacloud.internal.CustomBackoffStrategy;
@@ -153,7 +153,7 @@ public class AmazonHttpClient {
 
             schemeRegistry.register(https);
         } catch (NoSuchAlgorithmException e) {
-            throw new AmazonClientException("Unable to access default SSL context to disable strict hostname verification");
+            throw new LunacloudClientException("Unable to access default SSL context to disable strict hostname verification");
         }
     }
 
@@ -174,11 +174,11 @@ public class AmazonHttpClient {
      */
     public <T> T execute(Request<?> request,
             HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
-            HttpResponseHandler<AmazonServiceException> errorResponseHandler,
-            ExecutionContext executionContext) throws AmazonClientException, AmazonServiceException {
+            HttpResponseHandler<LunacloudServiceException> errorResponseHandler,
+            ExecutionContext executionContext) throws LunacloudClientException, LunacloudServiceException {
         long startTime = System.currentTimeMillis();
 
-        if (executionContext == null) throw new AmazonClientException("Internal SDK Error: No execution context parameter specified.");
+        if (executionContext == null) throw new LunacloudClientException("Internal SDK Error: No execution context parameter specified.");
         List<RequestHandler> requestHandlers = executionContext.getRequestHandlers();
         if (requestHandlers == null) requestHandlers = new ArrayList<RequestHandler>();
 
@@ -198,7 +198,7 @@ public class AmazonHttpClient {
                 } catch (ClassCastException cce) {}
             }
             return t;
-        } catch (AmazonClientException e) {
+        } catch (LunacloudClientException e) {
             for (RequestHandler handler : requestHandlers) {
                 handler.afterError(request, e);
             }
@@ -214,9 +214,9 @@ public class AmazonHttpClient {
      */
     private <T extends Object> T executeHelper(Request<?> request,
             HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
-            HttpResponseHandler<AmazonServiceException> errorResponseHandler,
+            HttpResponseHandler<LunacloudServiceException> errorResponseHandler,
             ExecutionContext executionContext)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
 
         /*
          * Depending on which response handler we end up choosing to handle the
@@ -239,7 +239,7 @@ public class AmazonHttpClient {
         int retryCount = 0;
         URI redirectedURI = null;
         HttpEntity entity = null;
-        AmazonServiceException exception = null;
+        LunacloudServiceException exception = null;
 
         // Make a copy of the original request params and headers so that we can
         // permute it in this loop and start over with the original every time.
@@ -352,7 +352,7 @@ public class AmazonHttpClient {
                 awsRequestMetrics.addProperty(Field.AWSRequestID.name(), null);
 
                 if (!shouldRetry(httpRequest, ioe, retryCount)) {
-                    throw new AmazonClientException("Unable to execute HTTP request: " + ioe.getMessage(), ioe);
+                    throw new LunacloudClientException("Unable to execute HTTP request: " + ioe.getMessage(), ioe);
                 }
                 resetRequestAfterError(request, ioe);
             } finally {
@@ -383,17 +383,17 @@ public class AmazonHttpClient {
      * @param cause
      *            The original error that caused the request to fail.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If the request can't be reset.
      */
-    private void resetRequestAfterError(Request<?> request, Exception cause) throws AmazonClientException {
+    private void resetRequestAfterError(Request<?> request, Exception cause) throws LunacloudClientException {
         if ( request.getContent() != null && request.getContent().markSupported() ) {
             try {
                 request.getContent().reset();
             } catch ( IOException e ) {
                 // This exception comes from being unable to reset the input stream,
                 // so throw the original, more meaningful exception
-                throw new AmazonClientException(
+                throw new LunacloudClientException(
                         "Encountered an exception and couldn't reset the stream to retry", cause);
             }
         }
@@ -471,8 +471,8 @@ public class AmazonHttpClient {
             return true;
         }
 
-        if (exception instanceof AmazonServiceException) {
-            AmazonServiceException ase = (AmazonServiceException)exception;
+        if (exception instanceof LunacloudServiceException) {
+            LunacloudServiceException ase = (LunacloudServiceException)exception;
 
             /*
              * For 500 internal server errors and 503 service
@@ -579,7 +579,7 @@ public class AmazonHttpClient {
             throw e;
         } catch (Exception e) {
             String errorMessage = "Unable to unmarshall response (" + e.getMessage() + ")";
-            throw new AmazonClientException(errorMessage, e);
+            throw new LunacloudClientException(errorMessage, e);
         }
     }
 
@@ -600,8 +600,8 @@ public class AmazonHttpClient {
      * @throws IOException
      *             If any problems are encountering reading the error response.
      */
-    private AmazonServiceException handleErrorResponse(Request<?> request,
-            HttpResponseHandler<AmazonServiceException> errorResponseHandler,
+    private LunacloudServiceException handleErrorResponse(Request<?> request,
+            HttpResponseHandler<LunacloudServiceException> errorResponseHandler,
             HttpRequestBase method, org.apache.http.HttpResponse apacheHttpResponse) throws IOException {
 
         int status = apacheHttpResponse.getStatusLine().getStatusCode();
@@ -611,7 +611,7 @@ public class AmazonHttpClient {
             response.setContent(new HttpMethodReleaseInputStream(entityEnclosingRequest));
         }
 
-        AmazonServiceException exception = null;
+        LunacloudServiceException exception = null;
         try {
             exception = errorResponseHandler.handle(response);
             requestLog.debug("Received error response: " + exception.toString());
@@ -619,20 +619,20 @@ public class AmazonHttpClient {
             // If the errorResponseHandler doesn't work, then check for error
             // responses that don't have any content
             if (status == 413) {
-                exception = new AmazonServiceException("Request entity too large");
+                exception = new LunacloudServiceException("Request entity too large");
                 exception.setServiceName(request.getServiceName());
                 exception.setStatusCode(413);
                 exception.setErrorType(ErrorType.Client);
                 exception.setErrorCode("Request entity too large");
             } else if (status == 503 && "Service Unavailable".equalsIgnoreCase(apacheHttpResponse.getStatusLine().getReasonPhrase())) {
-                exception = new AmazonServiceException("Service unavailable");
+                exception = new LunacloudServiceException("Service unavailable");
                 exception.setServiceName(request.getServiceName());
                 exception.setStatusCode(503);
                 exception.setErrorType(ErrorType.Service);
                 exception.setErrorCode("Service unavailable");
             } else {
                 String errorMessage = "Unable to unmarshall error response (" + e.getMessage() + ")";
-                throw new AmazonClientException(errorMessage, e);
+                throw new LunacloudClientException(errorMessage, e);
             }
         }
 
@@ -683,7 +683,7 @@ public class AmazonHttpClient {
      * @param previousException
      *            Exception information for the previous attempt, if any.
      */
-    private void pauseExponentially(int retries, AmazonServiceException previousException, CustomBackoffStrategy backoffStrategy) {
+    private void pauseExponentially(int retries, LunacloudServiceException previousException, CustomBackoffStrategy backoffStrategy) {
         long delay = 0;
         if (backoffStrategy != null) {
             delay = backoffStrategy.getBackoffPeriod(retries);
@@ -705,7 +705,7 @@ public class AmazonHttpClient {
             Thread.sleep(delay);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new AmazonClientException(e.getMessage(), e);
+            throw new LunacloudClientException(e.getMessage(), e);
         }
     }
 
@@ -718,7 +718,7 @@ public class AmazonHttpClient {
      * @return True if the exception resulted from a throttling error message
      *         from a service, otherwise false.
      */
-    private boolean isThrottlingException(AmazonServiceException ase) {
+    private boolean isThrottlingException(LunacloudServiceException ase) {
         if (ase == null) return false;
         return "Throttling".equals(ase.getErrorCode())
             || "ThrottlingException".equals(ase.getErrorCode())

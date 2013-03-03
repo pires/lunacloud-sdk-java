@@ -14,9 +14,9 @@
  */
 package pt.lunacloud.auth;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 
 public interface Signer {
-    public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException;
+    public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException;
 }

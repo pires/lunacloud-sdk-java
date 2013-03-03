@@ -20,8 +20,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.AmazonWebServiceRequest;
 import pt.lunacloud.HttpMethod;
 import pt.lunacloud.services.storage.internal.Constants;
@@ -164,15 +164,15 @@ public interface LunacloudStorage {
      * @param newStorageClass
      *            The new storage class for the specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void changeObjectStorageClass(String bucketName, String key, StorageClass newStorageClass)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
 
     /**
@@ -186,15 +186,15 @@ public interface LunacloudStorage {
      * @param newRedirectLocation
      *            The new redirect location for the specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setObjectRedirectLocation(String bucketName, String key, String newRedirectLocation)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -225,18 +225,18 @@ public interface LunacloudStorage {
      *         other associated information, such as common prefixes (if a
      *         delimiter was specified), the original request parameters, etc.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#listObjects(String, String)
      * @see LunacloudStorageClient#listObjects(ListObjectsRequest)
      */
-    public ObjectListing listObjects(String bucketName) throws AmazonClientException,
-            AmazonServiceException;
+    public ObjectListing listObjects(String bucketName) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -290,10 +290,10 @@ public interface LunacloudStorage {
      *         other associated information, such as common prefixes (if a
      *         delimiter was specified), the original request parameters, etc.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -301,7 +301,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorageClient#listObjects(ListObjectsRequest)
      */
     public ObjectListing listObjects(String bucketName, String prefix)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -359,10 +359,10 @@ public interface LunacloudStorage {
      *         other associated information, such as common prefixes (if a
      *         delimiter was specified), the original request parameters, etc.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -370,7 +370,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorageClient#listObjects(String, String)
      */
     public ObjectListing listObjects(ListObjectsRequest listObjectsRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -399,10 +399,10 @@ public interface LunacloudStorage {
      * @return The next set of <code>ObjectListing</code> results, beginning immediately
      *         after the last result in the specified previous <code>ObjectListing</code>.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -411,7 +411,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorageClient#listObjects(ListObjectsRequest)
      */
     public ObjectListing listNextBatchOfObjects(ObjectListing previousObjectListing)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -454,10 +454,10 @@ public interface LunacloudStorage {
      * @return A listing of the versions in the specified bucket, along with any
      *         other associated information and original request parameters.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -465,7 +465,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorageClient#listVersions(String, String, String, String, String, Integer)
      */
     public VersionListing listVersions(String bucketName, String prefix)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -496,10 +496,10 @@ public interface LunacloudStorage {
      * @return The next set of <code>VersionListing</code> results, beginning immediately
      *         after the last result in the specified previous <code>VersionListing</code>.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -508,7 +508,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorageClient#listVersions(String, String, String, String, String, Integer)
      */
     public VersionListing listNextBatchOfVersions(VersionListing previousVersionListing)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -637,10 +637,10 @@ public interface LunacloudStorage {
      *         other associated information such as common prefixes (if a
      *         delimiter was specified), the original request parameters, etc.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -650,7 +650,7 @@ public interface LunacloudStorage {
      */
     public VersionListing listVersions(String bucketName, String prefix,
             String keyMarker, String versionIdMarker, String delimiter, Integer maxResults)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -724,10 +724,10 @@ public interface LunacloudStorage {
      *         other associated information such as common prefixes (if a
      *         delimiter was specified), the original request parameters, etc.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -736,7 +736,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorageClient#listNextBatchOfVersions(VersionListing)
      */
     public VersionListing listVersions(ListVersionsRequest listVersionsRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -750,15 +750,15 @@ public interface LunacloudStorage {
      *
      * @return The account of the authenticated sender
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
-    public Owner getS3AccountOwner() throws AmazonClientException,
-            AmazonServiceException;
+    public Owner getS3AccountOwner() throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * Checks if the specified bucket exists. Amazon S3 buckets are named in a
@@ -773,17 +773,17 @@ public interface LunacloudStorage {
      *         Amazon S3; the value
      *         <code>false</code> if there is no bucket in Amazon S3 with that name.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#createBucket(CreateBucketRequest)
      */
     public boolean doesBucketExist(String bucketName)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -799,17 +799,17 @@ public interface LunacloudStorage {
      * @return A list of all of the Amazon S3 buckets owned by the authenticated
      *         sender of the request.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#listBuckets(ListBucketsRequest)
      */
-    public List<Bucket> listBuckets() throws AmazonClientException,
-            AmazonServiceException;
+    public List<Bucket> listBuckets() throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -829,17 +829,17 @@ public interface LunacloudStorage {
      * @return A list of all of the Amazon S3 buckets owned by the authenticated
      *         sender of the request.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#listBuckets()
      */
     public List<Bucket> listBuckets(ListBucketsRequest listBucketsRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
 
     /**
@@ -868,17 +868,17 @@ public interface LunacloudStorage {
      *
      * @return The location of the specified Amazon S3 bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see Region
      */
-    public String getBucketLocation(String bucketName) throws AmazonClientException,
-            AmazonServiceException;
+    public String getBucketLocation(String bucketName) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -906,17 +906,17 @@ public interface LunacloudStorage {
      *
      * @return The location of the specified Amazon S3 bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see Region
      */
     public String getBucketLocation(GetBucketLocationRequest getBucketLocationRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -974,15 +974,15 @@ public interface LunacloudStorage {
      *            bucket.
      * @return The newly created bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public Bucket createBucket(CreateBucketRequest createBucketRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
 
     /**
@@ -1043,15 +1043,15 @@ public interface LunacloudStorage {
      *
      * @return The newly created bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public Bucket createBucket(String bucketName)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1112,17 +1112,17 @@ public interface LunacloudStorage {
      *
      * @return The newly created bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see pt.lunacloud.services.storage.model.Region
      */
     public Bucket createBucket(String bucketName, Region region)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1185,17 +1185,17 @@ public interface LunacloudStorage {
      *
      * @return The newly created bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see pt.lunacloud.services.storage.model.Region
      */
     public Bucket createBucket(String bucketName, String region)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1219,17 +1219,17 @@ public interface LunacloudStorage {
      *
      * @return The <code>AccessControlList</code> for the specified Amazon S3 object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getObjectAcl(String, String, String)
      */
     public AccessControlList getObjectAcl(String bucketName, String key)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1263,17 +1263,17 @@ public interface LunacloudStorage {
      *
      * @return The <code>AccessControlList</code> for the specified Amazon S3 object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getObjectAcl(String, String)
      */
     public AccessControlList getObjectAcl(String bucketName, String key, String versionId)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1304,10 +1304,10 @@ public interface LunacloudStorage {
      * @param acl
      *            The new <code>AccessControlList</code> for the specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1316,7 +1316,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#setObjectAcl(String, String, String, CannedAccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, AccessControlList acl)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1346,10 +1346,10 @@ public interface LunacloudStorage {
      *            The new pre-configured <code>CannedAccessControlList</code> for the
      *            specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1358,7 +1358,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#setObjectAcl(String, String, String, CannedAccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, CannedAccessControlList acl)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1397,10 +1397,10 @@ public interface LunacloudStorage {
      * @param acl
      *            The new <code>AccessControlList</code> for the specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1409,7 +1409,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#setObjectAcl(String, String, String, CannedAccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, String versionId, AccessControlList acl)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1445,10 +1445,10 @@ public interface LunacloudStorage {
      *            The new pre-configured <code>CannedAccessControlList</code> for the
      *            specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1457,7 +1457,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#setObjectAcl(String, String, String, AccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, String versionId, CannedAccessControlList acl)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1477,15 +1477,15 @@ public interface LunacloudStorage {
      *
      * @return The <code>AccessControlList</code> for the specified S3 bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
-    public AccessControlList getBucketAcl(String bucketName) throws AmazonClientException,
-            AmazonServiceException;
+    public AccessControlList getBucketAcl(String bucketName) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * Sets the {@link AccessControlList} for the specified Amazon S3 bucket.
@@ -1506,15 +1506,15 @@ public interface LunacloudStorage {
      *            The request object containing the bucket to modify and the ACL
      *            to set.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setBucketAcl(SetBucketAclRequest setBucketAclRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Gets the {@link AccessControlList} (ACL) for the specified Amazon S3
@@ -1533,15 +1533,15 @@ public interface LunacloudStorage {
      *
      * @return The <code>AccessControlList</code> for the specified S3 bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public AccessControlList getBucketAcl(GetBucketAclRequest getBucketAclRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1566,17 +1566,17 @@ public interface LunacloudStorage {
      * @param acl
      *            The new AccessControlList for the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#setBucketAcl(String, CannedAccessControlList)
      */
     public void setBucketAcl(String bucketName, AccessControlList acl)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1601,17 +1601,17 @@ public interface LunacloudStorage {
      *            The pre-configured <code>CannedAccessControlLists</code> to set for the
      *            specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#setBucketAcl(String, AccessControlList)
      */
     public void setBucketAcl(String bucketName, CannedAccessControlList acl)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1635,17 +1635,17 @@ public interface LunacloudStorage {
      *
      * @return All Amazon S3 object metadata for the specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getObjectMetadata(GetObjectMetadataRequest)
      */
     public ObjectMetadata getObjectMetadata(String bucketName, String key)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1671,17 +1671,17 @@ public interface LunacloudStorage {
      *
      * @return All S3 object metadata for the specified object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getObjectMetadata(String, String)
      */
     public ObjectMetadata getObjectMetadata(GetObjectMetadataRequest getObjectMetadataRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1723,18 +1723,18 @@ public interface LunacloudStorage {
      *
      * @return The object stored in Amazon S3 in the specified bucket and key.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getObject(GetObjectRequest)
      * @see LunacloudStorage#getObject(GetObjectRequest, File)
      */
-    public StorageObject getObject(String bucketName, String key) throws AmazonClientException,
-            AmazonServiceException;
+    public StorageObject getObject(String bucketName, String key) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -1782,17 +1782,17 @@ public interface LunacloudStorage {
      * @return The object stored in Amazon S3 in the specified bucket and key.
      *         Returns <code>null</code> if constraints were specified but not met.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      * @see LunacloudStorage#getObject(String, String)
      * @see LunacloudStorage#getObject(GetObjectRequest, File)
      */
     public StorageObject getObject(GetObjectRequest getObjectRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
 
     /**
@@ -1835,11 +1835,11 @@ public interface LunacloudStorage {
      * @return All S3 object metadata for the specified object.
      *         Returns <code>null</code> if constraints were specified but not met.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request, handling the response, or writing the incoming data
      *             from S3 to the specified destination file.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1847,7 +1847,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#getObject(GetObjectRequest)
      */
     public ObjectMetadata getObject(GetObjectRequest getObjectRequest, File destinationFile)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1863,17 +1863,17 @@ public interface LunacloudStorage {
      * @param deleteBucketRequest
      *            The request object containing all options for deleting an Amazon S3
      *            bucket.
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#deleteBucket(String)
      */
     public void deleteBucket(DeleteBucketRequest deleteBucketRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
 
     /**
@@ -1890,17 +1890,17 @@ public interface LunacloudStorage {
      * @param bucketName
      *            The name of the bucket to delete.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#deleteBucket(String)
      */
     public void deleteBucket(String bucketName)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -1987,10 +1987,10 @@ public interface LunacloudStorage {
      * @return A {@link PutObjectResult} object containing the information
      *         returned by Amazon S3 for the newly created object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1998,7 +1998,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#putObject(String, String, InputStream, ObjectMetadata)
      */
     public PutObjectResult putObject(PutObjectRequest putObjectRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2061,10 +2061,10 @@ public interface LunacloudStorage {
      * @return A {@link PutObjectResult} object containing the information
      *         returned by Amazon S3 for the newly created object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -2072,7 +2072,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#putObject(String, String, InputStream, ObjectMetadata)
      */
     public PutObjectResult putObject(String bucketName, String key, File file)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2147,10 +2147,10 @@ public interface LunacloudStorage {
      * @return A {@link PutObjectResult} object containing the information
      *         returned by Amazon S3 for the newly created object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -2159,7 +2159,7 @@ public interface LunacloudStorage {
      */
     public PutObjectResult putObject(
             String bucketName, String key, InputStream input, ObjectMetadata metadata)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2198,18 +2198,18 @@ public interface LunacloudStorage {
      * @return A {@link CopyObjectResult} object containing the information
      *         returned by Amazon S3 for the newly created object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#copyObject(CopyObjectRequest)
      */
     public CopyObjectResult copyObject(String sourceBucketName, String sourceKey,
-            String destinationBucketName, String destinationKey) throws AmazonClientException,
-            AmazonServiceException;
+            String destinationBucketName, String destinationKey) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -2256,17 +2256,17 @@ public interface LunacloudStorage {
      *         constraints were specified that weren't met when Amazon S3 attempted
      *         to copy the object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#copyObject(String, String, String, String)
      */
     public CopyObjectResult copyObject(CopyObjectRequest copyObjectRequest)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Copies a source object to a part of a multipart upload.
@@ -2293,18 +2293,18 @@ public interface LunacloudStorage {
      *         constraints were specified that weren't met when Amazon S3 attempted
      *         to copy the object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#copyObject(CopyObjectRequest)
      * @see LunacloudStorageClient#initiateMultipartUpload(InitiateMultipartUploadRequest)
      */
-    public CopyPartResult copyPart(CopyPartRequest copyPartRequest) throws AmazonClientException,
-            AmazonServiceException;
+    public CopyPartResult copyPart(CopyPartRequest copyPartRequest) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -2323,17 +2323,17 @@ public interface LunacloudStorage {
      * @param key
      *            The key of the object to delete.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#deleteObject(DeleteObjectRequest)
      */
     public void deleteObject(String bucketName, String key)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2351,17 +2351,17 @@ public interface LunacloudStorage {
      *            The request object containing all options for deleting an Amazon S3
      *            object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#deleteObject(String, String)
      */
     public void deleteObject(DeleteObjectRequest deleteObjectRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Deletes multiple objects in a single bucket from S3.
@@ -2376,15 +2376,15 @@ public interface LunacloudStorage {
      *            multiple objects.
      * @throws MultiObjectDeleteException
      *             if one or more of the objects couldn't be deleted.
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
-    public DeleteObjectsResult deleteObjects(DeleteObjectsRequest deleteObjectsRequest) throws AmazonClientException,
-            AmazonServiceException;
+    public DeleteObjectsResult deleteObjects(DeleteObjectsRequest deleteObjectsRequest) throws LunacloudClientException,
+            LunacloudServiceException;
 
     /**
      * <p>
@@ -2419,15 +2419,15 @@ public interface LunacloudStorage {
      * @param versionId
      *            The version of the object to delete.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void deleteVersion(String bucketName, String key, String versionId)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2458,15 +2458,15 @@ public interface LunacloudStorage {
      *            The request object containing all options for deleting a
      *            specific version of an Amazon S3 object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void deleteVersion(DeleteVersionRequest deleteVersionRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2483,17 +2483,17 @@ public interface LunacloudStorage {
      *
      * @return The bucket logging configuration for the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#setBucketLoggingConfiguration(SetBucketLoggingConfigurationRequest)
      */
     public BucketLoggingConfiguration getBucketLoggingConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2527,17 +2527,17 @@ public interface LunacloudStorage {
      *            The request object containing all options for setting the
      *            bucket logging configuration.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getBucketLoggingConfiguration(String)
      */
     public void setBucketLoggingConfiguration(SetBucketLoggingConfigurationRequest setBucketLoggingConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2582,17 +2582,17 @@ public interface LunacloudStorage {
      *
      * @return The bucket versioning configuration for the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#setBucketVersioningConfiguration(SetBucketVersioningConfigurationRequest)
      */
     public BucketVersioningConfiguration getBucketVersioningConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -2643,17 +2643,17 @@ public interface LunacloudStorage {
      *            The request object containing all options for setting the
      *            bucket versioning configuration.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#getBucketVersioningConfiguration(String)
      */
     public void setBucketVersioningConfiguration(SetBucketVersioningConfigurationRequest setBucketVersioningConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Gets the lifecycle configuration for the specified bucket, or null if no
@@ -2771,15 +2771,15 @@ public interface LunacloudStorage {
      *
      * @return The bucket notification configuration for the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public BucketNotificationConfiguration getBucketNotificationConfiguration(String bucketName)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Sets the notification configuration for the specified bucket.
@@ -2806,15 +2806,15 @@ public interface LunacloudStorage {
      *            The request object containing all options for setting the
      *            bucket notification configuration.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setBucketNotificationConfiguration(String bucketName, BucketNotificationConfiguration bucketNotificationConfiguration)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Returns the website configuration for the specified bucket. Bucket
@@ -2845,15 +2845,15 @@ public interface LunacloudStorage {
      *         otherwise null if there is no website configuration set for the
      *         specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public BucketWebsiteConfiguration getBucketWebsiteConfiguration(String bucketName)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Returns the website configuration for the specified bucket. Bucket
@@ -2887,15 +2887,15 @@ public interface LunacloudStorage {
      *         otherwise null if there is no website configuration set for the
      *         specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public BucketWebsiteConfiguration getBucketWebsiteConfiguration(GetBucketWebsiteConfigurationRequest getBucketWebsiteConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Sets the website configuration for the specified bucket. Bucket
@@ -2925,15 +2925,15 @@ public interface LunacloudStorage {
      *            The configuration describing how the specified bucket will
      *            serve web requests (i.e. default index page, error page).
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setBucketWebsiteConfiguration(String bucketName, BucketWebsiteConfiguration configuration)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Sets the website configuration for the specified bucket. Bucket website
@@ -2963,15 +2963,15 @@ public interface LunacloudStorage {
      *            website configuration is being updated, and the new website
      *            configuration values.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setBucketWebsiteConfiguration(SetBucketWebsiteConfigurationRequest setBucketWebsiteConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * This operation removes the website configuration for a bucket. Calling
@@ -2993,15 +2993,15 @@ public interface LunacloudStorage {
      *            The name of the bucket whose website configuration is being
      *            deleted.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void deleteBucketWebsiteConfiguration(String bucketName)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * This operation removes the website configuration for a bucket. Calling
@@ -3025,15 +3025,15 @@ public interface LunacloudStorage {
      *            The request object specifying the name of the bucket whose
      *            website configuration is to be deleted.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered on the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void deleteBucketWebsiteConfiguration(DeleteBucketWebsiteConfigurationRequest deleteBucketWebsiteConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3059,17 +3059,17 @@ public interface LunacloudStorage {
      *
      * @return The Amazon S3 bucket policy for the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#setBucketPolicy(String, String)
      */
     public BucketPolicy getBucketPolicy(String bucketName)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3095,17 +3095,17 @@ public interface LunacloudStorage {
      *
      * @return The Amazon S3 bucket policy for the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorage#setBucketPolicy(String, String)
      */
     public BucketPolicy getBucketPolicy(GetBucketPolicyRequest getBucketPolicyRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3129,15 +3129,15 @@ public interface LunacloudStorage {
      * @param policyText
      *            The policy to apply to the specified bucket.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setBucketPolicy(String bucketName, String policyText)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3160,15 +3160,15 @@ public interface LunacloudStorage {
      *            The request object containing the details of the bucket and
      *            policy to update.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void setBucketPolicy(SetBucketPolicyRequest setBucketPolicyRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3190,15 +3190,15 @@ public interface LunacloudStorage {
      *            The name of the Amazon S3 bucket whose policy is being
      *            deleted.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void deleteBucketPolicy(String bucketName)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3220,15 +3220,15 @@ public interface LunacloudStorage {
      *            The request object containing all the details for deleting a
      *            bucket's policy.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void deleteBucketPolicy(DeleteBucketPolicyRequest deleteBucketPolicyRequest)
-        throws AmazonClientException, AmazonServiceException;
+        throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * <p>
@@ -3267,7 +3267,7 @@ public interface LunacloudStorage {
      *         used to allow anyone to download the specified object from S3,
      *         without exposing the owner's AWS secret access key.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If there were any problems pre-signing the request for the
      *             specified S3 object.
      *
@@ -3275,7 +3275,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#generatePresignedUrl(GeneratePresignedUrlRequest)
      */
     public URL generatePresignedUrl(String bucketName, String key, Date expiration)
-            throws AmazonClientException;
+            throws LunacloudClientException;
 
     /**
      * <p>
@@ -3316,7 +3316,7 @@ public interface LunacloudStorage {
      *         used to allow anyone to download the specified object from S3,
      *         without exposing the owner's AWS secret access key.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If there were any problems pre-signing the request for the
      *             specified S3 object.
      *
@@ -3324,7 +3324,7 @@ public interface LunacloudStorage {
      * @see LunacloudStorage#generatePresignedUrl(GeneratePresignedUrlRequest)
      */
     public URL generatePresignedUrl(String bucketName, String key, Date expiration, HttpMethod method)
-            throws AmazonClientException;
+            throws LunacloudClientException;
 
 
     /**
@@ -3364,14 +3364,14 @@ public interface LunacloudStorage {
      * @return A pre-signed URL that can be used to access an Amazon S3 resource
      *         without requiring the user of the URL to know the account's AWS
      *         security credentials.
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If there were any problems pre-signing the request for the
      *             Amazon S3 resource.
      * @see LunacloudStorage#generatePresignedUrl(String, String, Date)
      * @see LunacloudStorage#generatePresignedUrl(String, String, Date, HttpMethod)
      */
     public URL generatePresignedUrl(GeneratePresignedUrlRequest generatePresignedUrlRequest)
-            throws AmazonClientException;
+            throws LunacloudClientException;
 
     /**
      * Initiates a multipart upload and returns an InitiateMultipartUploadResult
@@ -3387,15 +3387,15 @@ public interface LunacloudStorage {
      *
      * @return An InitiateMultipartUploadResult from Amazon S3.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public InitiateMultipartUploadResult initiateMultipartUpload(InitiateMultipartUploadRequest request)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Uploads a part in a multipart upload. You must initiate a multipart
@@ -3429,15 +3429,15 @@ public interface LunacloudStorage {
      * @return An UploadPartResult from Amazon S3 containing the part number and
      *         ETag of the new part.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public UploadPartResult uploadPart(UploadPartRequest request)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Lists the parts that have been uploaded for a specific multipart upload.
@@ -3459,15 +3459,15 @@ public interface LunacloudStorage {
      *
      * @return Returns a PartListing from Amazon S3.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public PartListing listParts(ListPartsRequest request)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Aborts a multipart upload. After a multipart upload is aborted, no
@@ -3482,15 +3482,15 @@ public interface LunacloudStorage {
      *            The AbortMultipartUploadRequest object that specifies all the
      *            parameters of this operation.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public void abortMultipartUpload(AbortMultipartUploadRequest request)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Completes a multipart upload by assembling previously uploaded parts.
@@ -3514,15 +3514,15 @@ public interface LunacloudStorage {
      * @return A CompleteMultipartUploadResult from S3 containing the ETag for
      *         the new object composed of the individual parts.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public CompleteMultipartUploadResult completeMultipartUpload(CompleteMultipartUploadRequest request)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Lists in-progress multipart uploads. An in-progress multipart upload is a
@@ -3544,15 +3544,15 @@ public interface LunacloudStorage {
      *
      * @return A MultipartUploadListing from Amazon S3.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      */
     public MultipartUploadListing listMultipartUploads(ListMultipartUploadsRequest request)
-            throws AmazonClientException, AmazonServiceException;
+            throws LunacloudClientException, LunacloudServiceException;
 
     /**
      * Gets additional metadata for a previously executed successful request.
@@ -3587,14 +3587,14 @@ public interface LunacloudStorage {
      *            The request object containing all the options for restoring an
      *            Amazon S3 object.
      *
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#restoreObject(String, String, int)
      */
     public void restoreObject(RestoreObjectRequest copyGlacierObjectRequest)
-            throws AmazonServiceException;
+            throws LunacloudServiceException;
 
     /**
      * Restore an object, which was transitioned to Amazon Glacier from Amazon
@@ -3613,13 +3613,13 @@ public interface LunacloudStorage {
      * @param expirationInDays
      *            The number of days after which the object will expire.
      *
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
      * @see LunacloudStorageClient#restoreObject(RestoreObjectRequest)
      */
     public void restoreObject(String bucketName, String key, int expirationInDays)
-            throws AmazonServiceException;
+            throws LunacloudServiceException;
 
 }

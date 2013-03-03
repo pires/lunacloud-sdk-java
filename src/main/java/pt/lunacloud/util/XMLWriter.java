@@ -19,7 +19,7 @@ import java.io.Writer;
 import java.util.Date;
 import java.util.Stack;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 
 /**
@@ -152,7 +152,7 @@ public class XMLWriter {
         try {
             writer.append(s);
         } catch (IOException e) {
-            throw new AmazonClientException("Unable to write XML document", e);
+            throw new LunacloudClientException("Unable to write XML document", e);
         }
     }
 

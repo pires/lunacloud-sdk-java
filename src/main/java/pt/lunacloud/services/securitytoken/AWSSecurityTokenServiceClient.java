@@ -76,8 +76,8 @@ public class AWSSecurityTokenServiceClient extends AmazonWebServiceClient implem
     /**
      * List of exception unmarshallers for all AWSSecurityTokenService exceptions.
      */
-    protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers
-            = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+    protected final List<Unmarshaller<LunacloudServiceException, Node>> exceptionUnmarshallers
+            = new ArrayList<Unmarshaller<LunacloudServiceException, Node>>();
 
     
     /** AWS signer for authenticating requests. */
@@ -247,16 +247,16 @@ public class AWSSecurityTokenServiceClient extends AmazonWebServiceClient implem
      *         returned by AWSSecurityTokenService.
      * 
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public GetSessionTokenResult getSessionToken(GetSessionTokenRequest getSessionTokenRequest) 
-            throws AmazonServiceException, AmazonClientException {
+            throws LunacloudServiceException, LunacloudClientException {
         Request<GetSessionTokenRequest> request = new GetSessionTokenRequestMarshaller().marshall(getSessionTokenRequest);
         return invoke(request, new GetSessionTokenResultStaxUnmarshaller());
     }
@@ -297,16 +297,16 @@ public class AWSSecurityTokenServiceClient extends AmazonWebServiceClient implem
      * @throws PackedPolicyTooLargeException
      * @throws MalformedPolicyDocumentException
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public GetFederationTokenResult getFederationToken(GetFederationTokenRequest getFederationTokenRequest) 
-            throws AmazonServiceException, AmazonClientException {
+            throws LunacloudServiceException, LunacloudClientException {
         Request<GetFederationTokenRequest> request = new GetFederationTokenRequestMarshaller().marshall(getFederationTokenRequest);
         return invoke(request, new GetFederationTokenResultStaxUnmarshaller());
     }
@@ -360,16 +360,16 @@ public class AWSSecurityTokenServiceClient extends AmazonWebServiceClient implem
      * @throws PackedPolicyTooLargeException
      * @throws MalformedPolicyDocumentException
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public AssumeRoleResult assumeRole(AssumeRoleRequest assumeRoleRequest) 
-            throws AmazonServiceException, AmazonClientException {
+            throws LunacloudServiceException, LunacloudClientException {
         Request<AssumeRoleRequest> request = new AssumeRoleRequestMarshaller().marshall(assumeRoleRequest);
         return invoke(request, new AssumeRoleResultStaxUnmarshaller());
     }
@@ -397,15 +397,15 @@ public class AWSSecurityTokenServiceClient extends AmazonWebServiceClient implem
      *         returned by AWSSecurityTokenService.
      * 
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public GetSessionTokenResult getSessionToken() throws AmazonServiceException, AmazonClientException {
+    public GetSessionTokenResult getSessionToken() throws LunacloudServiceException, LunacloudClientException {
         return getSessionToken(new GetSessionTokenRequest());
     }
     

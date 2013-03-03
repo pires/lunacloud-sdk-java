@@ -16,24 +16,24 @@ package pt.lunacloud.transform;
 
 import java.lang.reflect.Constructor;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 
 
-public abstract class AbstractErrorUnmarshaller<T> implements Unmarshaller<AmazonServiceException, T> {
+public abstract class AbstractErrorUnmarshaller<T> implements Unmarshaller<LunacloudServiceException, T> {
 
     /**
      * The type of AmazonServiceException that will be instantiated. Subclasses
      * specialized for a specific type of exception can control this through the
      * protected constructor.
      */
-    protected final Class<? extends AmazonServiceException> exceptionClass;
+    protected final Class<? extends LunacloudServiceException> exceptionClass;
 
     /**
      * Constructs a new error unmarshaller that will unmarshall error responses
      * into AmazonServiceException objects.
      */
     public AbstractErrorUnmarshaller() {
-        this(AmazonServiceException.class);
+        this(LunacloudServiceException.class);
     }
 
     /**
@@ -44,7 +44,7 @@ public abstract class AbstractErrorUnmarshaller<T> implements Unmarshaller<Amazo
      *            The subclass of AmazonServiceException which will be
      *            instantiated and populated by this class.
      */
-    public AbstractErrorUnmarshaller(Class<? extends AmazonServiceException> exceptionClass) {
+    public AbstractErrorUnmarshaller(Class<? extends LunacloudServiceException> exceptionClass) {
         this.exceptionClass = exceptionClass;
     }
 
@@ -62,8 +62,8 @@ public abstract class AbstractErrorUnmarshaller<T> implements Unmarshaller<Amazo
      *             If there are any problems using reflection to invoke the
      *             exception class's constructor.
      */
-    protected AmazonServiceException newException(String message) throws Exception {
-        Constructor<? extends AmazonServiceException> constructor = exceptionClass.getConstructor(String.class);
+    protected LunacloudServiceException newException(String message) throws Exception {
+        Constructor<? extends LunacloudServiceException> constructor = exceptionClass.getConstructor(String.class);
         return constructor.newInstance(message);
     }
 

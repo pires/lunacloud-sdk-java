@@ -36,8 +36,8 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.AmazonWebServiceClient;
 import pt.lunacloud.AmazonWebServiceRequest;
 import pt.lunacloud.AmazonWebServiceResponse;
@@ -45,7 +45,7 @@ import pt.lunacloud.ClientConfiguration;
 import pt.lunacloud.DefaultRequest;
 import pt.lunacloud.HttpMethod;
 import pt.lunacloud.Request;
-import pt.lunacloud.AmazonServiceException.ErrorType;
+import pt.lunacloud.LunacloudServiceException.ErrorType;
 import pt.lunacloud.auth.LunacloudCredentials;
 import pt.lunacloud.auth.LunacloudCredentialsProvider;
 import pt.lunacloud.auth.AWSCredentialsProviderChain;
@@ -258,7 +258,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             public LunacloudCredentials getCredentials() {
                 try {
                     return super.getCredentials();
-                } catch (AmazonClientException ace) {}
+                } catch (LunacloudClientException ace) {}
 
                 log.debug("No credentials available; falling back to anonymous access");
                 return null;
@@ -366,7 +366,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listNextBatchOfVersions(com.amazonaws.services.s3.model.S3VersionListing)
      */
     public VersionListing listNextBatchOfVersions(VersionListing previousVersionListing)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(previousVersionListing,
             "The previous version listing parameter must be specified when listing the next batch of versions in a bucket");
 
@@ -396,7 +396,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listVersions(java.lang.String, java.lang.String)
      */
     public VersionListing listVersions(String bucketName, String prefix)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return listVersions(new ListVersionsRequest(bucketName, prefix, null, null, null, null));
     }
 
@@ -404,7 +404,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listVersions(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer)
      */
     public VersionListing listVersions(String bucketName, String prefix, String keyMarker, String versionIdMarker, String delimiter, Integer maxKeys)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
 
         ListVersionsRequest request = new ListVersionsRequest()
             .withBucketName(bucketName)
@@ -420,7 +420,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listVersions(com.amazonaws.services.s3.model.ListVersionsRequest)
      */
     public VersionListing listVersions(ListVersionsRequest listVersionsRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(listVersionsRequest.getBucketName(), "The bucket name parameter must be specified when listing versions in a bucket");
 
         Request<ListVersionsRequest> request = createRequest(listVersionsRequest.getBucketName(), null, listVersionsRequest, HttpMethodName.GET);
@@ -439,7 +439,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listObjects(java.lang.String)
      */
     public ObjectListing listObjects(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return listObjects(new ListObjectsRequest(bucketName, null, null, null, null));
     }
 
@@ -447,7 +447,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listObjects(java.lang.String, java.lang.String)
      */
     public ObjectListing listObjects(String bucketName, String prefix)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return listObjects(new ListObjectsRequest(bucketName, prefix, null, null, null));
     }
 
@@ -455,7 +455,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listObjects(com.amazonaws.services.s3.model.ListObjectsRequest)
      */
     public ObjectListing listObjects(ListObjectsRequest listObjectsRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(listObjectsRequest.getBucketName(), "The bucket name parameter must be specified when listing objects in a bucket");
 
         Request<ListObjectsRequest> request = createRequest(listObjectsRequest.getBucketName(), null, listObjectsRequest, HttpMethodName.GET);
@@ -471,7 +471,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listNextBatchOfObjects(com.amazonaws.services.s3.model.S3ObjectListing)
      */
     public ObjectListing listNextBatchOfObjects(ObjectListing previousObjectListing)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(previousObjectListing,
                 "The previous object listing parameter must be specified when listing the next batch of objects in a bucket");
 
@@ -500,7 +500,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getS3AccountOwner()
      */
     public Owner getS3AccountOwner()
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         Request<ListBucketsRequest> request = createRequest(null, null, new ListBucketsRequest(), HttpMethodName.GET);
         return invoke(request, new Unmarshallers.ListBucketsOwnerUnmarshaller(), null, null);
     }
@@ -509,7 +509,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listBuckets()
      */
     public List<Bucket> listBuckets(ListBucketsRequest listBucketsRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         Request<ListBucketsRequest> request = createRequest(null, null, listBucketsRequest, HttpMethodName.GET);
         return invoke(request, new Unmarshallers.ListBucketsUnmarshaller(), null, null);
     }
@@ -518,7 +518,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listBuckets()
      */
     public List<Bucket> listBuckets()
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return listBuckets(new ListBucketsRequest());
     }
 
@@ -526,7 +526,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketLocation(com.amazonaws.services.s3.AmazonS3Client.GetBucketLocationRequest)
      */
     public String getBucketLocation(GetBucketLocationRequest getBucketLocationRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(getBucketLocationRequest, "The request parameter must be specified when requesting a bucket's location");
         String bucketName = getBucketLocationRequest.getBucketName();
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when requesting a bucket's location");
@@ -541,7 +541,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketLocation(java.lang.String)
      */
     public String getBucketLocation(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return getBucketLocation(new GetBucketLocationRequest(bucketName));
     }
 
@@ -549,7 +549,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#createBucket(java.lang.String)
      */
     public Bucket createBucket(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return createBucket(new CreateBucketRequest(bucketName));
     }
 
@@ -557,7 +557,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#createBucket(java.lang.String, com.amazonaws.services.s3.model.Region)
      */
     public Bucket createBucket(String bucketName, Region region)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return createBucket(new CreateBucketRequest(bucketName, region));
     }
 
@@ -565,7 +565,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#createBucket(java.lang.String, java.lang.String)
      */
     public Bucket createBucket(String bucketName, String region)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return createBucket(new CreateBucketRequest(bucketName, region));
     }
 
@@ -573,7 +573,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#createBucket(com.amazonaws.services.s3.model.CreateBucketRequest)
      */
     public Bucket createBucket(CreateBucketRequest createBucketRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(createBucketRequest,
                 "The CreateBucketRequest parameter must be specified when creating a bucket");
 
@@ -637,7 +637,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObjectAcl(java.lang.String, java.lang.String)
      */
     public AccessControlList getObjectAcl(String bucketName, String key)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return getObjectAcl(bucketName, key, null);
     }
 
@@ -645,7 +645,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObjectAcl(java.lang.String, java.lang.String, java.lang.String)
      */
     public AccessControlList getObjectAcl(String bucketName, String key, String versionId)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when requesting an object's ACL");
         assertParameterNotNull(key, "The key parameter must be specified when requesting an object's ACL");
 
@@ -656,7 +656,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setObjectAcl(java.lang.String, java.lang.String, com.amazonaws.services.s3.model.AccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, AccessControlList acl)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         setObjectAcl(bucketName, key, null, acl);
     }
 
@@ -664,7 +664,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setObjectAcl(java.lang.String, java.lang.String, com.amazonaws.services.s3.model.CannedAccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, CannedAccessControlList acl)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         setObjectAcl(bucketName, key, null, acl);
     }
 
@@ -672,7 +672,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setObjectAcl(java.lang.String, java.lang.String, java.lang.String, com.amazonaws.services.s3.model.AccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, String versionId, AccessControlList acl)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when setting an object's ACL");
         assertParameterNotNull(key, "The key parameter must be specified when setting an object's ACL");
         assertParameterNotNull(acl, "The ACL parameter must be specified when setting an object's ACL");
@@ -684,7 +684,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setObjectAcl(java.lang.String, java.lang.String, java.lang.String, com.amazonaws.services.s3.model.CannedAccessControlList)
      */
     public void setObjectAcl(String bucketName, String key, String versionId, CannedAccessControlList acl)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when setting an object's ACL");
         assertParameterNotNull(key, "The key parameter must be specified when setting an object's ACL");
         assertParameterNotNull(acl, "The ACL parameter must be specified when setting an object's ACL");
@@ -696,7 +696,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketAcl(java.lang.String)
      */
     public AccessControlList getBucketAcl(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when requesting a bucket's ACL");
 
         return getAcl(bucketName, null, null, null);
@@ -706,7 +706,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketAcl(com.amazonaws.services.s3.GetBucketAclRequest)
      */
     public AccessControlList getBucketAcl(GetBucketAclRequest getBucketAclRequest)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
         String bucketName = getBucketAclRequest.getBucketName();
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when requesting a bucket's ACL");
 
@@ -717,7 +717,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketAcl(java.lang.String, com.amazonaws.services.s3.model.AccessControlList)
      */
     public void setBucketAcl(String bucketName, AccessControlList acl)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when setting a bucket's ACL");
         assertParameterNotNull(acl, "The ACL parameter must be specified when setting a bucket's ACL");
 
@@ -728,7 +728,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketAcl(com.amazonaws.services.s3.SetBucketAclRequest)
      */
     public void setBucketAcl(SetBucketAclRequest setBucketAclRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         String bucketName = setBucketAclRequest.getBucketName();
         AccessControlList acl = setBucketAclRequest.getAcl();
         CannedAccessControlList cannedAcl = setBucketAclRequest.getCannedAcl();
@@ -747,7 +747,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketAcl(java.lang.String, com.amazonaws.services.s3.model.CannedAccessControlList)
      */
     public void setBucketAcl(String bucketName, CannedAccessControlList acl)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName, "The bucket name parameter must be specified when setting a bucket's ACL");
         assertParameterNotNull(acl, "The ACL parameter must be specified when setting a bucket's ACL");
 
@@ -758,7 +758,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObjectMetadata(java.lang.String, java.lang.String)
      */
     public ObjectMetadata getObjectMetadata(String bucketName, String key)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return getObjectMetadata(new GetObjectMetadataRequest(bucketName, key));
     }
 
@@ -766,7 +766,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObjectMetadata(com.amazonaws.services.s3.model.GetObjectMetadataRequest)
      */
     public ObjectMetadata getObjectMetadata(GetObjectMetadataRequest getObjectMetadataRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(getObjectMetadataRequest, "The GetObjectMetadataRequest parameter must be specified when requesting an object's metadata");
 
         String bucketName = getObjectMetadataRequest.getBucketName();
@@ -786,7 +786,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObject(java.lang.String, java.lang.String)
      */
     public StorageObject getObject(String bucketName, String key)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return getObject(new GetObjectRequest(bucketName, key));
     }
 
@@ -794,14 +794,14 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#doesBucketExist(java.lang.String)
      */
     public boolean doesBucketExist(String bucketName)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
 
         try {
             listObjects(new ListObjectsRequest(bucketName, null, null, null, 0));
 
             // it exists and the current account owns it
             return true;
-        } catch (AmazonServiceException ase) {
+        } catch (LunacloudServiceException ase) {
             /*
              * If we have no credentials, or we detect a problem with the
              * credentials we used, go ahead and throw the error so we don't
@@ -832,7 +832,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#changeStorageClass(java.lang.String, java.lang.String, java.lang.String)
      */
     public void changeObjectStorageClass(String bucketName, String key, StorageClass newStorageClass)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
             "The bucketName parameter must be specified when changing an object's storage class");
         assertParameterNotNull(key,
@@ -848,7 +848,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setObjectRedirectLocation(java.lang.String, java.lang.String, java.lang.String)
      */
     public void setObjectRedirectLocation(String bucketName, String key, String newRedirectLocation)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
             "The bucketName parameter must be specified when changing an object's storage class");
         assertParameterNotNull(key,
@@ -864,7 +864,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObject(com.amazonaws.services.s3.model.GetObjectRequest)
      */
     public StorageObject getObject(GetObjectRequest getObjectRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(getObjectRequest,
                 "The GetObjectRequest parameter must be specified when requesting an object");
         assertParameterNotNull(getObjectRequest.getBucketName(),
@@ -949,7 +949,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getObject(com.amazonaws.services.s3.model.GetObjectRequest, java.io.File)
      */
     public ObjectMetadata getObject(GetObjectRequest getObjectRequest, File destinationFile)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(destinationFile,
                 "The destination file parameter must be specified when downloading an object directly to a file");
 
@@ -966,7 +966,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteBucket(java.lang.String)
      */
     public void deleteBucket(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         deleteBucket(new DeleteBucketRequest(bucketName));
     }
 
@@ -974,7 +974,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteBucket(com.amazonaws.services.s3.model.DeleteBucketRequest)
      */
     public void deleteBucket(DeleteBucketRequest deleteBucketRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(deleteBucketRequest,
                 "The DeleteBucketRequest parameter must be specified when deleting a bucket");
 
@@ -990,7 +990,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#putObject(java.lang.String, java.lang.String, java.io.File)
      */
     public PutObjectResult putObject(String bucketName, String key, File file)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return putObject(new PutObjectRequest(bucketName, key, file)
             .withMetadata(new ObjectMetadata()));
     }
@@ -999,7 +999,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#putObject(java.lang.String, java.lang.String, java.io.InputStream, com.amazonaws.services.s3.model.S3ObjectMetadata)
      */
     public PutObjectResult putObject(String bucketName, String key, InputStream input, ObjectMetadata metadata)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return putObject(new PutObjectRequest(bucketName, key, input, metadata));
     }
 
@@ -1008,7 +1008,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#putObject(com.amazonaws.services.s3.model.PutObjectRequest)
      */
     public PutObjectResult putObject(PutObjectRequest putObjectRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(putObjectRequest, "The PutObjectRequest parameter must be specified when uploading an object");
 
         String bucketName = putObjectRequest.getBucketName();
@@ -1040,7 +1040,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
                 byte[] md5Hash = Md5Utils.computeMD5Hash(fileInputStream);
                 metadata.setContentMD5(BinaryUtils.toBase64(md5Hash));
             } catch (Exception e) {
-                throw new AmazonClientException(
+                throw new LunacloudClientException(
                         "Unable to calculate MD5 hash: " + e.getMessage(), e);
             } finally {
                 try {fileInputStream.close();} catch (Exception e) {}
@@ -1049,7 +1049,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             try {
                 input = new RepeatableFileInputStream(file);
             } catch (FileNotFoundException fnfe) {
-                throw new AmazonClientException("Unable to find file to upload", fnfe);
+                throw new LunacloudClientException("Unable to find file to upload", fnfe);
             }
         }
 
@@ -1136,7 +1136,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
         ObjectMetadata returnedMetadata = null;
         try {
             returnedMetadata = invoke(request, new S3MetadataResponseHandler(), bucketName, key);
-        } catch (AmazonClientException ace) {
+        } catch (LunacloudClientException ace) {
             fireProgressEvent(progressListener, ProgressEvent.FAILED_EVENT_CODE);
             throw ace;
         } finally {
@@ -1156,7 +1156,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
 
             if (!Arrays.equals(clientSideHash, serverSideHash)) {
                 fireProgressEvent(progressListener, ProgressEvent.FAILED_EVENT_CODE);
-                throw new AmazonClientException("Unable to verify integrity of data upload.  " +
+                throw new LunacloudClientException("Unable to verify integrity of data upload.  " +
                         "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
                         "You may need to delete the data stored in Amazon S3.");
             }
@@ -1209,7 +1209,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      */
     public CopyObjectResult copyObject(String sourceBucketName, String sourceKey,
                                        String destinationBucketName, String destinationKey)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return copyObject(new CopyObjectRequest(sourceBucketName, sourceKey,
                                                 destinationBucketName, destinationKey));
     }
@@ -1218,7 +1218,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#copyObject(com.amazonaws.services.s3.model.CopyObjectRequest)
      */
     public CopyObjectResult copyObject(CopyObjectRequest copyObjectRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(copyObjectRequest.getSourceBucketName(),
                 "The source bucket name must be specified when copying an object");
         assertParameterNotNull(copyObjectRequest.getSourceKey(),
@@ -1330,10 +1330,10 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      *         constraints were specified that weren't met when Amazon S3 attempted
      *         to copy the object.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      *
@@ -1437,7 +1437,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteObject(java.lang.String, java.lang.String)
      */
     public void deleteObject(String bucketName, String key)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         deleteObject(new DeleteObjectRequest(bucketName, key));
     }
 
@@ -1445,7 +1445,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteObject(com.amazonaws.services.s3.DeleteObjectRequest)
      */
     public void deleteObject(DeleteObjectRequest deleteObjectRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(deleteObjectRequest,
             "The delete object request must be specified when deleting an object");
 
@@ -1476,7 +1476,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             String md5Base64 = BinaryUtils.toBase64(md5);
             request.addHeader("Content-MD5", md5Base64);
         } catch ( Exception e ) {
-            throw new AmazonClientException("Couldn't compute md5 sum", e);
+            throw new LunacloudClientException("Couldn't compute md5 sum", e);
         }
 
         DeleteObjectsResponse response = invoke(request, new Unmarshallers.DeleteObjectsResultUnmarshaller(), deleteObjectsRequest.getBucketName(), null);
@@ -1495,7 +1495,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteObjectVersion(java.lang.String, java.lang.String, java.lang.String)
      */
     public void deleteVersion(String bucketName, String key, String versionId)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         deleteVersion(new DeleteVersionRequest(bucketName, key, versionId));
     }
 
@@ -1503,7 +1503,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteVersion(com.amazonaws.services.s3.model.DeleteVersionRequest)
      */
     public void deleteVersion(DeleteVersionRequest deleteVersionRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(deleteVersionRequest,
             "The delete version request object must be specified when deleting a version");
 
@@ -1529,7 +1529,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketVersioningConfiguration(com.amazonaws.services.s3.model.SetBucketVersioningConfigurationRequest)
      */
     public void setBucketVersioningConfiguration(SetBucketVersioningConfigurationRequest setBucketVersioningConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(setBucketVersioningConfigurationRequest,
             "The SetBucketVersioningConfigurationRequest object must be specified when setting versioning configuration");
 
@@ -1564,7 +1564,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketVersioningConfiguration(java.lang.String)
      */
     public BucketVersioningConfiguration getBucketVersioningConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
                 "The bucket name parameter must be specified when querying versioning configuration");
 
@@ -1578,7 +1578,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketWebsiteConfiguration(java.lang.String)
      */
     public BucketWebsiteConfiguration getBucketWebsiteConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return getBucketWebsiteConfiguration(new GetBucketWebsiteConfigurationRequest(bucketName));
     }
 
@@ -1586,7 +1586,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketWebsiteConfiguration(com.amazonaws.services.s3.model.GetBucketWebsiteConfigurationRequest)
      */
     public BucketWebsiteConfiguration getBucketWebsiteConfiguration(GetBucketWebsiteConfigurationRequest getBucketWebsiteConfigurationRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         String bucketName = getBucketWebsiteConfigurationRequest.getBucketName();
 
         assertParameterNotNull(bucketName,
@@ -1598,7 +1598,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
 
         try {
             return invoke(request, new Unmarshallers.BucketWebsiteConfigurationUnmarshaller(), bucketName, null);
-        } catch (AmazonServiceException ase) {
+        } catch (LunacloudServiceException ase) {
             if (ase.getStatusCode() == 404) return null;
             throw ase;
         }
@@ -1613,7 +1613,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
 
         try {
             return invoke(request, new Unmarshallers.BucketLifecycleConfigurationUnmarshaller(), bucketName, null);
-        } catch (AmazonServiceException ase) {
+        } catch (LunacloudServiceException ase) {
             switch (ase.getStatusCode()) {
             case 404:
                 return null;
@@ -1639,7 +1639,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             String md5Base64 = BinaryUtils.toBase64(md5);
             request.addHeader("Content-MD5", md5Base64);
         } catch ( Exception e ) {
-            throw new AmazonClientException("Couldn't compute md5 sum", e);
+            throw new LunacloudClientException("Couldn't compute md5 sum", e);
         }
 
         invoke(request, voidResponseHandler, bucketName, null);
@@ -1664,7 +1664,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
 
             try {
                 return invoke(request, new Unmarshallers.BucketCrossOriginConfigurationUnmarshaller(), bucketName, null);
-            } catch (AmazonServiceException ase) {
+            } catch (LunacloudServiceException ase) {
                 switch (ase.getStatusCode()) {
                 case 404:
                     return null;
@@ -1690,7 +1690,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             String md5Base64 = BinaryUtils.toBase64(md5);
             request.addHeader("Content-MD5", md5Base64);
         } catch ( Exception e ) {
-            throw new AmazonClientException("Couldn't compute md5 sum", e);
+            throw new LunacloudClientException("Couldn't compute md5 sum", e);
         }
 
         invoke(request, voidResponseHandler, bucketName, null);
@@ -1714,7 +1714,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
 
         try {
             return invoke(request, new Unmarshallers.BucketTaggingConfigurationUnmarshaller(), bucketName, null);
-        } catch (AmazonServiceException ase) {
+        } catch (LunacloudServiceException ase) {
             switch (ase.getStatusCode()) {
             case 404:
                 return null;
@@ -1740,7 +1740,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             String md5Base64 = BinaryUtils.toBase64(md5);
             request.addHeader("Content-MD5", md5Base64);
         } catch ( Exception e ) {
-            throw new AmazonClientException("Couldn't compute md5 sum", e);
+            throw new LunacloudClientException("Couldn't compute md5 sum", e);
         }
 
         invoke(request, voidResponseHandler, bucketName, null);
@@ -1762,7 +1762,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketWebsiteConfiguration(java.lang.String, com.amazonaws.services.s3.model.BucketWebsiteConfiguration)
      */
     public void setBucketWebsiteConfiguration(String bucketName, BucketWebsiteConfiguration configuration)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         setBucketWebsiteConfiguration(new SetBucketWebsiteConfigurationRequest(bucketName, configuration));
     }
 
@@ -1770,7 +1770,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketWebsiteConfiguration(com.amazonaws.services.s3.model.SetBucketWebsiteConfigurationRequest)
      */
     public void setBucketWebsiteConfiguration(SetBucketWebsiteConfigurationRequest setBucketWebsiteConfigurationRequest)
-           throws AmazonClientException, AmazonServiceException {
+           throws LunacloudClientException, LunacloudServiceException {
         String bucketName = setBucketWebsiteConfigurationRequest.getBucketName();
         BucketWebsiteConfiguration configuration = setBucketWebsiteConfigurationRequest.getConfiguration();
 
@@ -1797,7 +1797,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteBucketWebsiteConfiguration(java.lang.String)
      */
     public void deleteBucketWebsiteConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         deleteBucketWebsiteConfiguration(new DeleteBucketWebsiteConfigurationRequest(bucketName));
     }
 
@@ -1805,7 +1805,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteBucketWebsiteConfiguration(com.amazonaws.services.s3.model.DeleteBucketWebsiteConfigurationRequest)
      */
     public void deleteBucketWebsiteConfiguration(DeleteBucketWebsiteConfigurationRequest deleteBucketWebsiteConfigurationRequest)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
         String bucketName = deleteBucketWebsiteConfigurationRequest.getBucketName();
 
         assertParameterNotNull(bucketName,
@@ -1822,7 +1822,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketNotificationConfiguration(java.lang.String,com.amazonaws.services.s3.model.BucketNotificationConfiguration)
      */
     public void setBucketNotificationConfiguration(String bucketName, BucketNotificationConfiguration bucketNotificationConfiguration)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
             "The bucket name parameter must be specified when setting notification configuration");
         assertParameterNotNull(bucketNotificationConfiguration,
@@ -1843,7 +1843,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketNotificationConfiguration(java.lang.String)
      */
     public BucketNotificationConfiguration getBucketNotificationConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
                 "The bucket name parameter must be specified when querying notification configuration");
 
@@ -1857,7 +1857,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketLoggingConfiguration(java.lang.String)
      */
     public BucketLoggingConfiguration getBucketLoggingConfiguration(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
                 "The bucket name parameter must be specified when requesting a bucket's logging status");
 
@@ -1871,7 +1871,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketLoggingConfiguration(com.amazonaws.services.s3.SetBucketLoggingConfigurationRequest)
      */
     public void setBucketLoggingConfiguration(SetBucketLoggingConfigurationRequest setBucketLoggingConfigurationRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(setBucketLoggingConfigurationRequest,
             "The set bucket logging configuration request object must be specified when enabling server access logging");
 
@@ -1896,7 +1896,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#getBucketPolicy(java.lang.String)
      */
     public BucketPolicy getBucketPolicy(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         return getBucketPolicy(new GetBucketPolicyRequest(bucketName));
     }
 
@@ -1904,7 +1904,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketPolicy(java.lang.String, java.lang.String)
      */
     public void setBucketPolicy(String bucketName, String policyText)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(bucketName,
             "The bucket name must be specified when setting a bucket policy");
         assertParameterNotNull(policyText,
@@ -1921,7 +1921,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#deleteBucketPolicy(java.lang.String)
      */
     public void deleteBucketPolicy(String bucketName)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         deleteBucketPolicy(new DeleteBucketPolicyRequest(bucketName));
     }
 
@@ -1930,7 +1930,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      */
     public BucketPolicy getBucketPolicy(
             GetBucketPolicyRequest getBucketPolicyRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(getBucketPolicyRequest,
             "The request object must be specified when getting a bucket policy");
 
@@ -1946,7 +1946,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             String policyText = invoke(request, new S3StringResponseHandler(), bucketName, null);
             result.setPolicyText(policyText);
             return result;
-        } catch (AmazonServiceException ase) {
+        } catch (LunacloudServiceException ase) {
             /*
              * If we receive an error response telling us that no policy has
              * been set for this bucket, then instead of forcing the user to
@@ -1962,7 +1962,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#setBucketPolicy(com.amazonaws.services.s3.model.SetBucketPolicyRequest)
      */
     public void setBucketPolicy(SetBucketPolicyRequest setBucketPolicyRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(setBucketPolicyRequest,
             "The request object must be specified when setting a bucket policy");
 
@@ -1986,7 +1986,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      */
     public void deleteBucketPolicy(
             DeleteBucketPolicyRequest deleteBucketPolicyRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(deleteBucketPolicyRequest,
             "The request object must be specified when deleting a bucket policy");
 
@@ -2006,7 +2006,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#generatePresignedUrl(java.lang.String, java.lang.String, java.util.Date)
      */
     public URL generatePresignedUrl(String bucketName, String key, Date expiration)
-            throws AmazonClientException {
+            throws LunacloudClientException {
         return generatePresignedUrl(bucketName, key, expiration, HttpMethod.GET);
     }
 
@@ -2014,7 +2014,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#generatePresignedUrl(java.lang.String, java.lang.String, java.util.Date, com.amazonaws.HttpMethod)
      */
     public URL generatePresignedUrl(String bucketName, String key, Date expiration, HttpMethod method)
-            throws AmazonClientException {
+            throws LunacloudClientException {
         GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key, method);
         request.setExpiration(expiration);
 
@@ -2025,7 +2025,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#generatePresignedUrl(com.amazonaws.services.s3.model.GeneratePresignedUrlRequest)
      */
     public URL generatePresignedUrl(GeneratePresignedUrlRequest generatePresignedUrlRequest)
-            throws AmazonClientException {
+            throws LunacloudClientException {
         assertParameterNotNull(generatePresignedUrlRequest,
             "The request parameter must be specified when generating a pre-signed URL");
 
@@ -2064,7 +2064,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#abortMultipartUpload(com.amazonaws.services.s3.model.AbortMultipartUploadRequest)
      */
     public void abortMultipartUpload(AbortMultipartUploadRequest abortMultipartUploadRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(abortMultipartUploadRequest,
             "The request parameter must be specified when aborting a multipart upload");
         assertParameterNotNull(abortMultipartUploadRequest.getBucketName(),
@@ -2088,7 +2088,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      */
     public CompleteMultipartUploadResult completeMultipartUpload(
             CompleteMultipartUploadRequest completeMultipartUploadRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(completeMultipartUploadRequest,
             "The request parameter must be specified when completing a multipart upload");
 
@@ -2133,7 +2133,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      */
     public InitiateMultipartUploadResult initiateMultipartUpload(
             InitiateMultipartUploadRequest initiateMultipartUploadRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(initiateMultipartUploadRequest,
             "The request parameter must be specified when initiating a multipart upload");
 
@@ -2179,7 +2179,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listMultipartUploads(com.amazonaws.services.s3.model.ListMultipartUploadsRequest)
      */
     public MultipartUploadListing listMultipartUploads(ListMultipartUploadsRequest listMultipartUploadsRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(listMultipartUploadsRequest,
             "The request parameter must be specified when listing multipart uploads");
 
@@ -2202,7 +2202,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#listParts(com.amazonaws.services.s3.model.ListPartsRequest)
      */
     public PartListing listParts(ListPartsRequest listPartsRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(listPartsRequest,
             "The request parameter must be specified when listing parts");
 
@@ -2226,7 +2226,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#uploadPart(com.amazonaws.services.s3.model.UploadPartRequest)
      */
     public UploadPartResult uploadPart(UploadPartRequest uploadPartRequest)
-            throws AmazonClientException, AmazonServiceException {
+            throws LunacloudClientException, LunacloudServiceException {
         assertParameterNotNull(uploadPartRequest,
             "The request parameter must be specified when uploading a part");
 
@@ -2304,7 +2304,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
 
                 if (!Arrays.equals(clientSideHash, serverSideHash)) {
                     fireProgressEvent(progressListener, ProgressEvent.FAILED_EVENT_CODE);
-                    throw new AmazonClientException("Unable to verify integrity of data upload.  " +
+                    throw new LunacloudClientException("Unable to verify integrity of data upload.  " +
                             "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
                             "You may need to delete the data stored in Amazon S3.");
                 }
@@ -2317,7 +2317,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             result.setPartNumber(partNumber);
             result.setServerSideEncryption(metadata.getServerSideEncryption());
             return result;
-        } catch (AmazonClientException ace) {
+        } catch (LunacloudClientException ace) {
             fireProgressEvent(progressListener, ProgressEvent.PART_FAILED_EVENT_CODE);
             throw ace;
         } finally {
@@ -2339,7 +2339,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#restoreObject(com.amazonaws.services.s3.model.RestoreObjectRequest)
      */
     public void restoreObject(RestoreObjectRequest restoreObjectRequest)
-            throws AmazonServiceException {
+            throws LunacloudServiceException {
         String bucketName = restoreObjectRequest.getBucketName();
         String key = restoreObjectRequest.getKey();
         int expirationIndays = restoreObjectRequest.getExpirationInDays();
@@ -2363,7 +2363,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
             String md5Base64 = BinaryUtils.toBase64(md5);
             request.addHeader("Content-MD5", md5Base64);
         } catch (Exception e) {
-            throw new AmazonClientException("Couldn't compute md5 sum", e);
+            throw new LunacloudClientException("Couldn't compute md5 sum", e);
         }
 
         invoke(request, voidResponseHandler, bucketName, key);
@@ -2373,7 +2373,7 @@ public class LunacloudStorageClient extends AmazonWebServiceClient implements Lu
      * @see com.amazonaws.services.s3.AmazonS3#copyGlacierObject((java.lang.String, java.lang.String, int)
      */
     public void restoreObject(String bucketName, String key, int expirationInDays)
-            throws AmazonServiceException {
+            throws LunacloudServiceException {
         restoreObject(new RestoreObjectRequest(bucketName, key, expirationInDays));
     }
 

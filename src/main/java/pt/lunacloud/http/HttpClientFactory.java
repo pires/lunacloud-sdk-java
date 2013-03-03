@@ -53,7 +53,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HttpContext;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.ClientConfiguration;
 
 
@@ -109,7 +109,7 @@ class HttpClientFactory {
             sr.register(http);
             sr.register(https);
         } catch (NoSuchAlgorithmException e) {
-            throw new AmazonClientException("Unable to access default SSL context");
+            throw new LunacloudClientException("Unable to access default SSL context");
         }
 
         /*

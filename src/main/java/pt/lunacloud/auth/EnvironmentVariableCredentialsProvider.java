@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.auth;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 /**
  * {@link LunacloudCredentialsProvider} implementation that provides credentials
@@ -38,7 +38,7 @@ public class EnvironmentVariableCredentialsProvider implements LunacloudCredenti
                     System.getenv(SECRET_KEY_ENV_VAR));
         }
 
-        throw new AmazonClientException(
+        throw new LunacloudClientException(
                 "Unable to load AWS credentials from environment variables " +
                 "(" + ACCESS_KEY_ENV_VAR + " and " + SECRET_KEY_ENV_VAR + ")");
     }

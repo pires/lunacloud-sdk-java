@@ -18,8 +18,8 @@ import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.services.storage.transfer.MultipleFileUpload;
 import pt.lunacloud.services.storage.transfer.TransferProgress;
 import pt.lunacloud.services.storage.transfer.Upload;
@@ -58,10 +58,10 @@ public class MultipleFileUploadImpl extends MultipleFileTransfer implements Mult
      * Waits for this transfer to complete. This is a blocking call; the current
      * thread is suspended until this transfer completes.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors were encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      * @throws InterruptedException
@@ -70,7 +70,7 @@ public class MultipleFileUploadImpl extends MultipleFileTransfer implements Mult
      */
     @Override
     public void waitForCompletion()
-            throws AmazonClientException, AmazonServiceException, InterruptedException {
+            throws LunacloudClientException, LunacloudServiceException, InterruptedException {
     	if (subTransfers.isEmpty())
     		return;
         super.waitForCompletion();

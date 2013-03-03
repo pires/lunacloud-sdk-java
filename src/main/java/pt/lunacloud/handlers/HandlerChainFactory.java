@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 
 /**
@@ -58,13 +58,13 @@ public class HandlerChainFactory {
                 if (requestHandlerObject instanceof RequestHandler) {
                     handlers.add((RequestHandler)requestHandlerObject);
                 } else {
-                    throw new AmazonClientException("Unable to instantiate request handler chain for client.  "
+                    throw new LunacloudClientException("Unable to instantiate request handler chain for client.  "
                             + "Listed request handler ('" + requestHandlerClassName + "') "
                             + "does not implement the RequestHandler interface.");
                 }
             }
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to instantiate request handler chain for client: "
+            throw new LunacloudClientException("Unable to instantiate request handler chain for client: "
                     + e.getMessage(), e);
         }
 

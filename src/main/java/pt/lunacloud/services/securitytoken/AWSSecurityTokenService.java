@@ -99,16 +99,16 @@ public interface AWSSecurityTokenService {
      *         returned by AWSSecurityTokenService.
      * 
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public GetSessionTokenResult getSessionToken(GetSessionTokenRequest getSessionTokenRequest) 
-            throws AmazonServiceException, AmazonClientException;
+            throws LunacloudServiceException, LunacloudClientException;
 
     /**
      * <p>
@@ -146,16 +146,16 @@ public interface AWSSecurityTokenService {
      * @throws PackedPolicyTooLargeException
      * @throws MalformedPolicyDocumentException
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public GetFederationTokenResult getFederationToken(GetFederationTokenRequest getFederationTokenRequest) 
-            throws AmazonServiceException, AmazonClientException;
+            throws LunacloudServiceException, LunacloudClientException;
 
     /**
      * <p>
@@ -206,16 +206,16 @@ public interface AWSSecurityTokenService {
      * @throws PackedPolicyTooLargeException
      * @throws MalformedPolicyDocumentException
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public AssumeRoleResult assumeRole(AssumeRoleRequest assumeRoleRequest) 
-            throws AmazonServiceException, AmazonClientException;
+            throws LunacloudServiceException, LunacloudClientException;
 
     /**
      * <p>
@@ -240,15 +240,15 @@ public interface AWSSecurityTokenService {
      *         returned by AWSSecurityTokenService.
      * 
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public GetSessionTokenResult getSessionToken() throws AmazonServiceException, AmazonClientException;
+    public GetSessionTokenResult getSessionToken() throws LunacloudServiceException, LunacloudClientException;
     
     /**
      * Shuts down this client object, releasing any resources that might be held

@@ -36,7 +36,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.services.storage.Headers;
 import pt.lunacloud.services.storage.internal.InputSubstream;
 import pt.lunacloud.services.storage.internal.Mimetypes;
@@ -193,7 +193,7 @@ public class EncryptionUtils {
 
             if (encryptedSymmetricKeyBytes == null || initVectorBytes == null || materialsDescription == null) {
                 // If necessary encryption info was not found in the instruction file, throw an exception.
-                throw new AmazonClientException(
+                throw new LunacloudClientException(
                         String.format("Necessary encryption info not found in the instruction file '%s' in bucket '%s'",
                                       instructionFile.getKey(), instructionFile.getBucketName()));
             }
@@ -202,7 +202,7 @@ public class EncryptionUtils {
             // If we're unable to retrieve the original encryption materials, we can't decrypt the object, so
             // throw an exception.
             if (materials == null) {
-                throw new AmazonClientException(
+                throw new LunacloudClientException(
                         String.format("Unable to retrieve the encryption materials that originally " +
                                 "encrypted object corresponding to instruction file '%s' in bucket '%s'.",
                                 instructionFile.getKey(), instructionFile.getBucketName()));
@@ -214,7 +214,7 @@ public class EncryptionUtils {
 
             return new EncryptionInstruction(materialsDescription, encryptedSymmetricKeyBytes, symmetricKey, cipher);
         } catch (JSONException e) {
-            throw new AmazonClientException("Unable to parse retrieved instruction file : " + e.getMessage());
+            throw new LunacloudClientException("Unable to parse retrieved instruction file : " + e.getMessage());
         }
     }
 
@@ -231,7 +231,7 @@ public class EncryptionUtils {
      * @return
      *      A non-null instruction object containing encryption information
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *      if encryption information is missing in the metadata, or the encryption
      *      materials used to encrypt the object are not available via the materials Accessor
      */
@@ -253,7 +253,7 @@ public class EncryptionUtils {
      * @return
      *      A non-null instruction object containing encryption information
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *      if encryption information is missing in the metadata, or the encryption
      *      materials used to encrypt the object are not available via the materials Accessor
      */
@@ -268,7 +268,7 @@ public class EncryptionUtils {
 
         if (encryptedSymmetricKeyBytes == null || initVectorBytes == null || materialsDescription == null) {
             // If necessary encryption info was not found in the instruction file, throw an exception.
-            throw new AmazonClientException(
+            throw new LunacloudClientException(
                     String.format("Necessary encryption info not found in the headers of file '%s' in bucket '%s'",
                                   object.getKey(), object.getBucketName()));
         }
@@ -277,7 +277,7 @@ public class EncryptionUtils {
         // If we're unable to retrieve the original encryption materials, we can't decrypt the object, so
         // throw an exception.
         if (materials == null) {
-            throw new AmazonClientException(
+            throw new LunacloudClientException(
                     String.format("Unable to retrieve the encryption materials that originally " +
                             "encrypted file '%s' in bucket '%s'.",
                             object.getKey(), object.getBucketName()));
@@ -514,7 +514,7 @@ public class EncryptionUtils {
                 object.setObjectContent(new StorageObjectInputStream(adjustedRangeContents, objectContent.getHttpRequest()));
                 return object;
             } catch (IOException e) {
-                throw new AmazonClientException("Error adjusting output to desired byte range: " + e.getMessage());
+                throw new LunacloudClientException("Error adjusting output to desired byte range: " + e.getMessage());
             }
         }
     }
@@ -529,7 +529,7 @@ public class EncryptionUtils {
             generator.init(JceEncryptionConstants.SYMMETRIC_KEY_LENGTH, new SecureRandom());
             return generator.generateKey();
         } catch (NoSuchAlgorithmException e) {
-            throw new AmazonClientException("Unable to generate envelope symmetric key:" + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to generate envelope symmetric key:" + e.getMessage(), e);
         }
     }
 
@@ -553,7 +553,7 @@ public class EncryptionUtils {
             }
             return cipher;
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to build cipher with the provided algorithm and padding: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to build cipher with the provided algorithm and padding: " + e.getMessage(), e);
         }
     }
 
@@ -581,7 +581,7 @@ public class EncryptionUtils {
             cipher.init(Cipher.ENCRYPT_MODE, keyToDoEncryption);
             return cipher.doFinal(toBeEncryptedBytes);
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to encrypt symmetric key: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to encrypt symmetric key: " + e.getMessage(), e);
         }
     }
 
@@ -609,7 +609,7 @@ public class EncryptionUtils {
             byte[] decryptedSymmetricKeyBytes = cipher.doFinal(encryptedSymmetricKeyBytes);
             return new SecretKeySpec(decryptedSymmetricKeyBytes, JceEncryptionConstants.SYMMETRIC_KEY_ALGORITHM);
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to decrypt symmetric key from object metadata : " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to decrypt symmetric key from object metadata : " + e.getMessage(), e);
         }
     }
 
@@ -624,7 +624,7 @@ public class EncryptionUtils {
             }
             return new CipherInputStream(originalInputStream, symmetricCipher);
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to create cipher input stream: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to create cipher input stream: " + e.getMessage(), e);
         }
     }
 
@@ -647,7 +647,7 @@ public class EncryptionUtils {
     		int cipherBlockSize = symmetricCipher.getBlockSize();
     		return new ByteRangeCapturingInputStream(originalInputStream, partSize - cipherBlockSize, partSize);
     	} catch (Exception e) {
-    		throw new AmazonClientException("Unable to create cipher input stream: " + e.getMessage(), e);
+    		throw new LunacloudClientException("Unable to create cipher input stream: " + e.getMessage(), e);
     	}
     }
 
@@ -699,7 +699,7 @@ public class EncryptionUtils {
             }
             return materialsDescription;
         } catch (JSONException e) {
-            throw new AmazonClientException("Unable to parse encryption materials description from metadata :" + e.getMessage());
+            throw new LunacloudClientException("Unable to parse encryption materials description from metadata :" + e.getMessage());
         }
     }
 
@@ -851,7 +851,7 @@ public class EncryptionUtils {
             String instructionString = convertStreamToString(instructionObject.getObjectContent());
             return new JSONObject(instructionString);
         } catch (Exception e) {
-            throw new AmazonClientException("Error parsing JSON instruction file: " + e.getMessage());
+            throw new LunacloudClientException("Error parsing JSON instruction file: " + e.getMessage());
         }
     }
 

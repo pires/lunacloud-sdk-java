@@ -19,8 +19,8 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.services.storage.model.ProgressListener;
 import pt.lunacloud.services.storage.transfer.Transfer;
 import pt.lunacloud.services.storage.transfer.TransferProgress;
@@ -77,10 +77,10 @@ public abstract class AbstractTransfer implements Transfer {
      * Waits for this transfer to complete. This is a blocking call; the current
      * thread is suspended until this transfer completes.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors were encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      * @throws InterruptedException
@@ -88,7 +88,7 @@ public abstract class AbstractTransfer implements Transfer {
      *             to complete.
      */
     public void waitForCompletion()
-            throws AmazonClientException, AmazonServiceException, InterruptedException {
+            throws LunacloudClientException, LunacloudServiceException, InterruptedException {
         try {
             Object result = null;
             while (!monitor.isDone() || result == null) {
@@ -115,7 +115,7 @@ public abstract class AbstractTransfer implements Transfer {
      *             If this thread is interrupted while waiting for the transfer
      *             to complete.
      */
-    public AmazonClientException waitForException() throws InterruptedException {
+    public LunacloudClientException waitForException() throws InterruptedException {
         try {
 
             while (!monitor.isDone()) {
@@ -238,10 +238,10 @@ public abstract class AbstractTransfer implements Transfer {
      *
      * @return The root exception that caused the specified ExecutionException.
      */
-    protected AmazonClientException unwrapExecutionException(ExecutionException e) {
+    protected LunacloudClientException unwrapExecutionException(ExecutionException e) {
         Throwable t = e.getCause();
-        if (t instanceof AmazonClientException) return (AmazonClientException)t;
-        return new AmazonClientException("Unable to complete transfer: " + t.getMessage(), t);
+        if (t instanceof LunacloudClientException) return (LunacloudClientException)t;
+        return new LunacloudClientException("Unable to complete transfer: " + t.getMessage(), t);
     }
 
 }

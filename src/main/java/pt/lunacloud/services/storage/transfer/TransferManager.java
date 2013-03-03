@@ -30,8 +30,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.AmazonWebServiceRequest;
 import pt.lunacloud.auth.LunacloudCredentials;
 import pt.lunacloud.services.storage.AmazonS3EncryptionClient;
@@ -258,16 +258,16 @@ public class TransferManager {
 	 * 		   the state of the upload, listen for progress notifications,
 	 * 		   and otherwise manage the upload.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 *             If any errors are encountered in the client while making the
 	 *             request or handling the response.
-	 * @throws AmazonServiceException
+	 * @throws LunacloudServiceException
 	 *             If any errors occurred in Amazon S3 while processing the
 	 *             request.
 	 */
 	public Upload upload(final String bucketName, final String key,
 	        final InputStream input, ObjectMetadata objectMetadata)
-	        throws AmazonServiceException, AmazonClientException {
+	        throws LunacloudServiceException, LunacloudClientException {
 		return upload(new PutObjectRequest(bucketName, key, input,
 		        objectMetadata));
 	}
@@ -296,16 +296,16 @@ public class TransferManager {
 	 *         upload, listen for progress notifications, and otherwise manage
 	 *         the upload.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 *             If any errors are encountered in the client while making the
 	 *             request or handling the response.
-	 * @throws AmazonServiceException
+	 * @throws LunacloudServiceException
 	 *             If any errors occurred in Amazon S3 while processing the
 	 *             request.
 	 */
 	public Upload upload(final String bucketName, final String key,
-	        final File file) throws AmazonServiceException,
-	        AmazonClientException {
+	        final File file) throws LunacloudServiceException,
+	        LunacloudClientException {
 		return upload(new PutObjectRequest(bucketName, key, file));
 	}
 
@@ -333,15 +333,15 @@ public class TransferManager {
 	 * 		   the state of the upload, listen for progress notifications,
 	 * 		   and otherwise manage the upload.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 *             If any errors are encountered in the client while making the
 	 *             request or handling the response.
-	 * @throws AmazonServiceException
+	 * @throws LunacloudServiceException
 	 *             If any errors occurred in Amazon S3 while processing the
 	 *             request.
 	 */
 	public Upload upload(final PutObjectRequest putObjectRequest)
-	        throws AmazonServiceException, AmazonClientException {
+	        throws LunacloudServiceException, LunacloudClientException {
 		return upload(putObjectRequest, null);
 	}
 
@@ -352,7 +352,7 @@ public class TransferManager {
 	 */
 	private Upload upload(final PutObjectRequest putObjectRequest,
 	        final TransferStateChangeListener stateListener)
-	        throws AmazonServiceException, AmazonClientException {
+	        throws LunacloudServiceException, LunacloudClientException {
 
 		appendUserAgent(putObjectRequest, USER_AGENT);
 
@@ -416,10 +416,10 @@ public class TransferManager {
 	 *         the download, listen for progress notifications, and otherwise
 	 *         manage the download.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 *             If any errors are encountered in the client while making the
 	 *             request or handling the response.
-	 * @throws AmazonServiceException
+	 * @throws LunacloudServiceException
 	 *             If any errors occurred in Amazon S3 while processing the
 	 *             request.
 	 */
@@ -444,10 +444,10 @@ public class TransferManager {
 	 *         the download, listen for progress notifications, and otherwise
 	 *         manage the download.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 *             If any errors are encountered in the client while making the
 	 *             request or handling the response.
-	 * @throws AmazonServiceException
+	 * @throws LunacloudServiceException
 	 *             If any errors occurred in Amazon S3 while processing the
 	 *             request.
 	 */
@@ -501,7 +501,7 @@ public class TransferManager {
 							try {
 								startDownloadLock.wait();
 							} catch (InterruptedException e) {
-								throw new AmazonClientException(
+								throw new LunacloudClientException(
 								        "Couldn't wait for setting future into the monitor");
 							}
 						}
@@ -693,7 +693,7 @@ public class TransferManager {
 					try {
 						allTransfersQueuedLock.wait();
 					} catch (InterruptedException e) {
-						throw new AmazonClientException(
+						throw new LunacloudClientException(
 						        "Couldn't wait for all downloads to be queued");
 					}
 				}
@@ -840,7 +840,7 @@ public class TransferManager {
 	 *            The date indicating which multipart uploads should be aborted.
 	 */
 	public void abortMultipartUploads(String bucketName, Date date)
-	        throws AmazonServiceException, AmazonClientException {
+	        throws LunacloudServiceException, LunacloudClientException {
 		MultipartUploadListing uploadListing = s3
 		        .listMultipartUploads(appendUserAgent(
 		                new ListMultipartUploadsRequest(bucketName), USER_AGENT));

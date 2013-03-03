@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.transform;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.util.json.JSONObject;
 
 /**
@@ -24,14 +24,14 @@ public class JsonErrorUnmarshaller extends AbstractErrorUnmarshaller<JSONObject>
 
     public JsonErrorUnmarshaller() {}
 
-    protected JsonErrorUnmarshaller(Class<? extends AmazonServiceException> exceptionClass) {
+    protected JsonErrorUnmarshaller(Class<? extends LunacloudServiceException> exceptionClass) {
         super(exceptionClass);
     }
 
-    public AmazonServiceException unmarshall(JSONObject json) throws Exception {
+    public LunacloudServiceException unmarshall(JSONObject json) throws Exception {
         String message = parseMessage(json);
 
-        AmazonServiceException ase = newException(message);
+        LunacloudServiceException ase = newException(message);
 
         String errorCode = parseErrorCode(json);
         ase.setErrorCode(errorCode);

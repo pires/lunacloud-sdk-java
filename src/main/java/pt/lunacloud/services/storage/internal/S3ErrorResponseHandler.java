@@ -16,8 +16,8 @@ package pt.lunacloud.services.storage.internal;
 
 import org.w3c.dom.Document;
 
-import pt.lunacloud.AmazonServiceException;
-import pt.lunacloud.AmazonServiceException.ErrorType;
+import pt.lunacloud.LunacloudServiceException;
+import pt.lunacloud.LunacloudServiceException.ErrorType;
 import pt.lunacloud.http.HttpMethodName;
 import pt.lunacloud.http.HttpResponse;
 import pt.lunacloud.http.HttpResponseHandler;
@@ -37,12 +37,12 @@ import pt.lunacloud.util.XpathUtils;
  * parts of the error response.
  */
 public class S3ErrorResponseHandler
-        implements HttpResponseHandler<AmazonServiceException> {
+        implements HttpResponseHandler<LunacloudServiceException> {
 
     /**
      * @see pt.lunacloud.http.HttpResponseHandler#handle(pt.lunacloud.http.HttpResponse)
      */
-    public AmazonServiceException handle(HttpResponse errorResponse)
+    public LunacloudServiceException handle(HttpResponse errorResponse)
             throws Exception {
         /*
          * We don't always get an error response body back from S3. When we send
@@ -91,7 +91,7 @@ public class S3ErrorResponseHandler
      *            The HTTP error response to use to determine the right error
      *            type to set.
      */
-    private void fillInErrorType(AmazonServiceException ase, HttpResponse errorResponse) {
+    private void fillInErrorType(LunacloudServiceException ase, HttpResponse errorResponse) {
         if (errorResponse.getStatusCode() >= 500) {
             ase.setErrorType(ErrorType.Service);
         } else {

@@ -20,8 +20,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXParseException;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.transform.Unmarshaller;
 import pt.lunacloud.util.XpathUtils;
 
@@ -36,13 +36,13 @@ import pt.lunacloud.util.XpathUtils;
  * information (error message, AWS error code, AWS request ID, etc).
  */
 public class DefaultErrorResponseHandler
-        implements HttpResponseHandler<AmazonServiceException> {
+        implements HttpResponseHandler<LunacloudServiceException> {
 
     /**
      * The list of error response unmarshallers to try to apply to error
      * responses.
      */
-    private List<Unmarshaller<AmazonServiceException, Node>> unmarshallerList;
+    private List<Unmarshaller<LunacloudServiceException, Node>> unmarshallerList;
 
     /**
      * Constructs a new DefaultErrorResponseHandler that will handle error
@@ -55,23 +55,23 @@ public class DefaultErrorResponseHandler
      *            response.
      */
     public DefaultErrorResponseHandler(
-            List<Unmarshaller<AmazonServiceException, Node>> unmarshallerList) {
+            List<Unmarshaller<LunacloudServiceException, Node>> unmarshallerList) {
         this.unmarshallerList = unmarshallerList;
     }
 
     /* (non-Javadoc)
      * @see com.amazonaws.http.HttpResponseHandler#handle(com.amazonaws.http.HttpResponse)
      */
-    public AmazonServiceException handle(HttpResponse errorResponse)
+    public LunacloudServiceException handle(HttpResponse errorResponse)
             throws Exception {
         Document document;
         try {
             document = XpathUtils.documentFrom(errorResponse.getContent());
         } catch (SAXParseException e) {
-            AmazonServiceException exception =
-                new AmazonServiceException(String.format("Unable to unmarshall error response (%s)", e.getMessage()), e);
+            LunacloudServiceException exception =
+                new LunacloudServiceException(String.format("Unable to unmarshall error response (%s)", e.getMessage()), e);
             exception.setErrorCode(String.format("%s %s", errorResponse.getStatusCode(), errorResponse.getStatusText()));
-            exception.setErrorType(AmazonServiceException.ErrorType.Unknown);
+            exception.setErrorType(LunacloudServiceException.ErrorType.Unknown);
             exception.setStatusCode(errorResponse.getStatusCode());
 
             return exception;
@@ -84,15 +84,15 @@ public class DefaultErrorResponseHandler
          * unmarshall the response, but we might need something a little more
          * sophisticated in the future.
          */
-        for (Unmarshaller<AmazonServiceException, Node> unmarshaller : unmarshallerList) {
-            AmazonServiceException ase = unmarshaller.unmarshall(document);
+        for (Unmarshaller<LunacloudServiceException, Node> unmarshaller : unmarshallerList) {
+            LunacloudServiceException ase = unmarshaller.unmarshall(document);
             if (ase != null) {
                 ase.setStatusCode(errorResponse.getStatusCode());
                 return ase;
             }
         }
 
-        throw new AmazonClientException("Unable to unmarshall error response from service");
+        throw new LunacloudClientException("Unable to unmarshall error response from service");
     }
 
     /**

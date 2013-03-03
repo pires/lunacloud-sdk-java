@@ -32,7 +32,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.util.HttpUtils;
 import pt.lunacloud.util.StringInputStream;
@@ -55,11 +55,11 @@ public abstract class AbstractAWSSigner implements Signer {
      * Base64 encoded string.
      */
     protected String signAndBase64Encode(String data, String key, SigningAlgorithm algorithm)
-            throws AmazonClientException {
+            throws LunacloudClientException {
         try {
             return signAndBase64Encode(data.getBytes(DEFAULT_ENCODING), key, algorithm);
         } catch (UnsupportedEncodingException e) {
-            throw new AmazonClientException("Unable to calculate a request signature: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to calculate a request signature: " + e.getMessage(), e);
         }
     }
 
@@ -68,31 +68,31 @@ public abstract class AbstractAWSSigner implements Signer {
      * returns the result as a Base64 encoded string.
      */
     protected String signAndBase64Encode(byte[] data, String key, SigningAlgorithm algorithm)
-            throws AmazonClientException {
+            throws LunacloudClientException {
         try {
             byte[] signature = sign(data, key.getBytes(DEFAULT_ENCODING), algorithm);
             return new String(Base64.encodeBase64(signature));
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to calculate a request signature: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to calculate a request signature: " + e.getMessage(), e);
         }
     }
 
-    protected byte[] sign(String stringData, byte[] key, SigningAlgorithm algorithm) throws AmazonClientException {
+    protected byte[] sign(String stringData, byte[] key, SigningAlgorithm algorithm) throws LunacloudClientException {
         try {
             byte[] data = stringData.getBytes(DEFAULT_ENCODING);
             return sign(data, key, algorithm);
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to calculate a request signature: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to calculate a request signature: " + e.getMessage(), e);
         }
     }
 
-    protected byte[] sign(byte[] data, byte[] key, SigningAlgorithm algorithm) throws AmazonClientException {
+    protected byte[] sign(byte[] data, byte[] key, SigningAlgorithm algorithm) throws LunacloudClientException {
         try {
             Mac mac = Mac.getInstance(algorithm.toString());
             mac.init(new SecretKeySpec(key, algorithm.toString()));
             return mac.doFinal(data);
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to calculate a request signature: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to calculate a request signature: " + e.getMessage(), e);
         }
     }
 
@@ -105,20 +105,20 @@ public abstract class AbstractAWSSigner implements Signer {
      *
      * @return The hashed bytes from the specified string.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If the hash cannot be computed.
      */
-    protected byte[] hash(String text) throws AmazonClientException {
+    protected byte[] hash(String text) throws LunacloudClientException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(text.getBytes(DEFAULT_ENCODING));
             return md.digest();
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
         }
     }
 
-    protected byte[] hash(InputStream input) throws AmazonClientException {
+    protected byte[] hash(InputStream input) throws LunacloudClientException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             DigestInputStream digestInputStream = new DigestInputStream(input, md);
@@ -126,7 +126,7 @@ public abstract class AbstractAWSSigner implements Signer {
             while (digestInputStream.read(buffer) > -1);
             return digestInputStream.getMessageDigest().digest();
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
         }
     }
 
@@ -139,16 +139,16 @@ public abstract class AbstractAWSSigner implements Signer {
      *
      * @return The hashed bytes from the specified data.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If the hash cannot be computed.
      */
-    protected byte[] hash(byte[] data) throws AmazonClientException {
+    protected byte[] hash(byte[] data) throws LunacloudClientException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(data);
             return md.digest();
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
         }
     }
 
@@ -216,7 +216,7 @@ public abstract class AbstractAWSSigner implements Signer {
             try {
                 return encodedParameters.getBytes(DEFAULT_ENCODING);
             } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to encode string into bytes");
+                throw new LunacloudClientException("Unable to encode string into bytes");
             }
         }
 
@@ -275,7 +275,7 @@ public abstract class AbstractAWSSigner implements Signer {
 
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to read request payload to sign request: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to read request payload to sign request: " + e.getMessage(), e);
         }
     }
 
@@ -286,7 +286,7 @@ public abstract class AbstractAWSSigner implements Signer {
             try {
                 return new ByteArrayInputStream(encodedParameters.getBytes(DEFAULT_ENCODING));
             } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to encode string into bytes");
+                throw new LunacloudClientException("Unable to encode string into bytes");
             }
         }
 
@@ -303,12 +303,12 @@ public abstract class AbstractAWSSigner implements Signer {
             }
 
             if (!content.markSupported()) {
-                throw new AmazonClientException("Unable to read request payload to sign request.");
+                throw new LunacloudClientException("Unable to read request payload to sign request.");
             }
 
             return request.getContent();
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to read request payload to sign request: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to read request payload to sign request: " + e.getMessage(), e);
         }
     }
 
@@ -386,7 +386,7 @@ public abstract class AbstractAWSSigner implements Signer {
         try {
             return new String(bytes, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            throw new AmazonClientException("Unable to encode bytes to String", e);
+            throw new LunacloudClientException("Unable to encode bytes to String", e);
         }
     }
 

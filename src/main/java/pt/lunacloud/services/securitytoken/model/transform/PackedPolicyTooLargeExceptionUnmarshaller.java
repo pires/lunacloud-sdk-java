@@ -16,7 +16,7 @@ package pt.lunacloud.services.securitytoken.model.transform;
 
 import org.w3c.dom.Node;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.services.securitytoken.model.PackedPolicyTooLargeException;
 import pt.lunacloud.transform.StandardErrorUnmarshaller;
 import pt.lunacloud.util.XpathUtils;
@@ -29,7 +29,7 @@ public class PackedPolicyTooLargeExceptionUnmarshaller extends StandardErrorUnma
         super(PackedPolicyTooLargeException.class);
     }
 
-    public AmazonServiceException unmarshall(Node node) throws Exception {
+    public LunacloudServiceException unmarshall(Node node) throws Exception {
         // Bail out if this isn't the right error code that this
         // marshaller understands.
         String errorCode = parseErrorCode(node);

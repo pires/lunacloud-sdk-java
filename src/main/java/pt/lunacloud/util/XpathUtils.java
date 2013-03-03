@@ -39,7 +39,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 
 /**
@@ -281,7 +281,7 @@ public class XpathUtils {
                 byte[] decodedBytes = Base64.decodeBase64(base64EncodedBytes);
                 return ByteBuffer.wrap(decodedBytes);
             } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to unmarshall XML data into a ByteBuffer", e);
+                throw new LunacloudClientException("Unable to unmarshall XML data into a ByteBuffer", e);
             }
         }
         return null;

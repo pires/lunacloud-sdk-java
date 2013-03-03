@@ -30,8 +30,8 @@ import javax.crypto.SecretKey;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.AmazonWebServiceRequest;
 import pt.lunacloud.ClientConfiguration;
 import pt.lunacloud.auth.LunacloudCredentials;
@@ -391,7 +391,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
      */
     @Override
     public PutObjectResult putObject(PutObjectRequest putObjectRequest)
-    throws AmazonClientException, AmazonServiceException {
+    throws LunacloudClientException, LunacloudServiceException {
     	
     	appendUserAgent(putObjectRequest, USER_AGENT);
     	
@@ -407,7 +407,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
      */
     @Override
     public StorageObject getObject(GetObjectRequest getObjectRequest)
-    throws AmazonClientException, AmazonServiceException {
+    throws LunacloudClientException, LunacloudServiceException {
     	
     	appendUserAgent(getObjectRequest, USER_AGENT);
     	
@@ -453,7 +453,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
      */
     @Override
     public ObjectMetadata getObject(GetObjectRequest getObjectRequest, File destinationFile)
-    throws AmazonClientException, AmazonServiceException {
+    throws LunacloudClientException, LunacloudServiceException {
     		
         assertParameterNotNull(destinationFile,
         "The destination file parameter must be specified when downloading an object directly to a file");
@@ -471,7 +471,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
                 outputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            throw new AmazonClientException(
+            throw new LunacloudClientException(
                     "Unable to store object contents to disk: " + e.getMessage(), e);
         } finally {
             try {outputStream.close();} catch (Exception e) {}
@@ -508,7 +508,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
     @Override
 	public CompleteMultipartUploadResult completeMultipartUpload(
 			CompleteMultipartUploadRequest completeMultipartUploadRequest)
-			throws AmazonClientException, AmazonServiceException {
+			throws LunacloudClientException, LunacloudServiceException {
     	
     	appendUserAgent(completeMultipartUploadRequest, USER_AGENT);
 
@@ -516,7 +516,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
     	EncryptedUploadContext encryptedUploadContext = currentMultipartUploadSecretKeys.get(uploadId);
 
     	if (encryptedUploadContext.hasFinalPartBeenSeen() == false) {
-    		throw new AmazonClientException("Unable to complete an encrypted multipart upload without being told which part was the last.  " +
+    		throw new LunacloudClientException("Unable to complete an encrypted multipart upload without being told which part was the last.  " +
     				"Without knowing which part was the last, the encrypted data in Amazon S3 is incomplete and corrupt.");
     	}
 
@@ -549,7 +549,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
 	@Override
 	public InitiateMultipartUploadResult initiateMultipartUpload(
 			InitiateMultipartUploadRequest initiateMultipartUploadRequest)
-			throws AmazonClientException, AmazonServiceException {
+			throws LunacloudClientException, LunacloudServiceException {
 		
 		appendUserAgent(initiateMultipartUploadRequest, USER_AGENT);
 
@@ -590,7 +590,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
 	 */
 	@Override
     public UploadPartResult uploadPart(UploadPartRequest uploadPartRequest)
-        throws AmazonClientException, AmazonServiceException {
+        throws LunacloudClientException, LunacloudServiceException {
 		
 		appendUserAgent(uploadPartRequest, USER_AGENT);
 
@@ -599,14 +599,14 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
 
 		boolean partSizeMultipleOfCipherBlockSize = uploadPartRequest.getPartSize() % JceEncryptionConstants.SYMMETRIC_CIPHER_BLOCK_SIZE == 0;
 		if (!isLastPart && !partSizeMultipleOfCipherBlockSize) {
-			throw new AmazonClientException("Invalid part size: part sizes for encrypted multipart uploads must be multiples " +
+			throw new LunacloudClientException("Invalid part size: part sizes for encrypted multipart uploads must be multiples " +
 					"of the cipher block size (" + JceEncryptionConstants.SYMMETRIC_CIPHER_BLOCK_SIZE + ") with the exception of the last part.  " +
 				    "Otherwise encryption adds extra padding that will corrupt the final object.");
 		}
 
         // Generate the envelope symmetric key and initialize a cipher to encrypt the object's data
 		EncryptedUploadContext encryptedUploadContext = currentMultipartUploadSecretKeys.get(uploadId);
-    	if (encryptedUploadContext == null) throw new AmazonClientException("No client-side information available on upload ID " + uploadId);
+    	if (encryptedUploadContext == null) throw new LunacloudClientException("No client-side information available on upload ID " + uploadId);
 
         SecretKey envelopeSymmetricKey = encryptedUploadContext.getEnvelopeEncryptionKey();
         byte[] iv = encryptedUploadContext.getNextInitializationVector();
@@ -624,7 +624,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
 			if (cryptoContentLength > 0) uploadPartRequest.setPartSize(cryptoContentLength);
 
 			if (encryptedUploadContext.hasFinalPartBeenSeen()) {
-				throw new AmazonClientException("This part was specified as the last part in a multipart upload, but a previous part was already marked as the last part.  " +
+				throw new LunacloudClientException("This part was specified as the last part in a multipart upload, but a previous part was already marked as the last part.  " +
 						"Only the last part of the upload should be marked as the last part, otherwise it will cause the encrypted data to be corrupted.");
 			}
 
@@ -641,7 +641,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
     		ByteRangeCapturingInputStream bris = (ByteRangeCapturingInputStream)encryptedInputStream;
     		encryptedUploadContext.setNextInitializationVector(bris.getBlock());
     	} else {
-    		throw new AmazonClientException("Unable to access last block of encrypted data");
+    		throw new LunacloudClientException("Unable to access last block of encrypted data");
     	}
 
 		return result;
@@ -672,15 +672,15 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
      * @return
      *      A {@link PutObjectResult} object containing the information
      *      returned by Amazon S3 for the new, created object.
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *      If any errors are encountered on the client while making the
      *      request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *      If any errors occurred in Amazon S3 while processing the
      *      request.
      */
     private PutObjectResult putObjectUsingMetadata(PutObjectRequest putObjectRequest)
-    throws AmazonClientException, AmazonServiceException {
+    throws LunacloudClientException, LunacloudServiceException {
         // Create instruction
         EncryptionInstruction instruction = EncryptionUtils.generateInstruction(this.encryptionMaterialsProvider, this.cryptoConfig.getCryptoProvider());
 
@@ -703,15 +703,15 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
      * @return
      *      A {@link PutObjectResult} object containing the information
      *      returned by Amazon S3 for the new, created object.
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *      If any errors are encountered on the client while making the
      *      request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *      If any errors occurred in Amazon S3 while processing the
      *      request.
      */
     private PutObjectResult putObjectUsingInstructionFile(PutObjectRequest putObjectRequest)
-    throws AmazonClientException, AmazonServiceException {
+    throws LunacloudClientException, LunacloudServiceException {
         // Create instruction
         EncryptionInstruction instruction = EncryptionUtils.generateInstruction(this.encryptionMaterialsProvider, this.cryptoConfig.getCryptoProvider());
 
@@ -776,7 +776,7 @@ public class AmazonS3EncryptionClient extends LunacloudStorageClient {
         try {
             GetObjectRequest instructionFileRequest = EncryptionUtils.createInstructionGetRequest(getObjectRequest);
             return super.getObject(instructionFileRequest);
-        } catch (AmazonServiceException e) {
+        } catch (LunacloudServiceException e) {
             // If no instruction file is found, log a debug message, and return null.
             log.debug("Unable to retrieve instruction file : " + e.getMessage());
             return null;

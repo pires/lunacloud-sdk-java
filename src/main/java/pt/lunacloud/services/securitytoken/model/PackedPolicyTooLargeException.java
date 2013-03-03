@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.services.securitytoken.model;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 
 /**
  * <p>
@@ -22,7 +22,7 @@ import pt.lunacloud.AmazonServiceException;
  * percentage of what the API allows.
  * </p>
  */        
-public class PackedPolicyTooLargeException extends AmazonServiceException {
+public class PackedPolicyTooLargeException extends LunacloudServiceException {
     private static final long serialVersionUID = 1L;
     
     /**

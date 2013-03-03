@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.services.storage.model;
 
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudServiceException;
 
 /**
  * Provides an extension of the AmazonServiceException
@@ -24,7 +24,7 @@ import pt.lunacloud.AmazonServiceException;
  * the user needs to contact Amazon about an issue where Amazon S3 is incorrectly
  * handling a request.
  */
-public class AmazonS3Exception extends AmazonServiceException {
+public class AmazonS3Exception extends LunacloudServiceException {
     private static final long serialVersionUID = 7573680383273658477L;
 
     /**

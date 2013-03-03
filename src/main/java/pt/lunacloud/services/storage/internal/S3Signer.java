@@ -19,7 +19,7 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.auth.LunacloudCredentials;
 import pt.lunacloud.auth.AWSSessionCredentials;
@@ -83,7 +83,7 @@ public class S3Signer extends AbstractAWSSigner {
             throw new IllegalArgumentException("Parameter resourcePath is empty");
     }
 
-    public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException {
+    public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException {
         if (credentials == null || credentials.getLunacloudSecretKey() == null) {
             log.debug("Canonical string will not be signed, as no AWS Secret Key was provided");
             return;

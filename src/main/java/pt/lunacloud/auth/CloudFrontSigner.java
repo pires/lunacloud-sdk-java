@@ -19,7 +19,7 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.util.DateUtils;
 
@@ -33,7 +33,7 @@ public class CloudFrontSigner extends AbstractAWSSigner {
     /** Shared log for signing debug output */
     private static final Log log = LogFactory.getLog(CloudFrontSigner.class);
 
-    public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException {
+    public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException {
         LunacloudCredentials sanitizedCredentials = sanitizeCredentials(credentials);
         if ( sanitizedCredentials instanceof AWSSessionCredentials ) {
             addSessionCredentials(request, (AWSSessionCredentials) sanitizedCredentials);

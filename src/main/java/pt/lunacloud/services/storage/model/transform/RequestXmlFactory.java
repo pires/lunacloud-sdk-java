@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.services.storage.internal.XmlWriter;
 import pt.lunacloud.services.storage.model.PartETag;
 import pt.lunacloud.services.storage.model.RestoreObjectRequest;
@@ -71,9 +71,9 @@ public class RequestXmlFactory {
      *
      * @return A byte array containing the data
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      */
-    public static byte[] convertToXmlByteArray(RestoreObjectRequest restoreObjectRequest) throws AmazonClientException {
+    public static byte[] convertToXmlByteArray(RestoreObjectRequest restoreObjectRequest) throws LunacloudClientException {
         XmlWriter xml = new XmlWriter();
 
         xml.start("RestoreRequest");

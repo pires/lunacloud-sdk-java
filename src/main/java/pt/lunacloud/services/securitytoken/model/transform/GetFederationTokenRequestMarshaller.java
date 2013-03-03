@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.DefaultRequest;
 import pt.lunacloud.Request;
 import pt.lunacloud.services.securitytoken.model.*;
@@ -34,7 +34,7 @@ public class GetFederationTokenRequestMarshaller implements Marshaller<Request<G
     public Request<GetFederationTokenRequest> marshall(GetFederationTokenRequest getFederationTokenRequest) {
 
         if (getFederationTokenRequest == null) {
-		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		    throw new LunacloudClientException("Invalid argument passed to marshall(...)");
 		}
 
         Request<GetFederationTokenRequest> request = new DefaultRequest<GetFederationTokenRequest>(getFederationTokenRequest, "AWSSecurityTokenService");

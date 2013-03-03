@@ -17,8 +17,8 @@ package pt.lunacloud.services.storage.transfer.internal;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.services.storage.transfer.Upload;
 import pt.lunacloud.services.storage.transfer.model.UploadResult;
 
@@ -38,10 +38,10 @@ public class UploadImpl extends AbstractTransfer implements Upload {
      * 
      * @return The result of this transfer.
      * 
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any errors were encountered in the client while making the
      *             request or handling the response.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
      * @throws InterruptedException
@@ -49,7 +49,7 @@ public class UploadImpl extends AbstractTransfer implements Upload {
      *             complete.
      */
     public UploadResult waitForUploadResult() 
-            throws AmazonClientException, AmazonServiceException, InterruptedException {
+            throws LunacloudClientException, LunacloudServiceException, InterruptedException {
         try {
             UploadResult result = null;
             while (!monitor.isDone() || result == null) {

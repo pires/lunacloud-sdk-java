@@ -20,26 +20,26 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map.Entry;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
-import pt.lunacloud.AmazonServiceException.ErrorType;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
+import pt.lunacloud.LunacloudServiceException.ErrorType;
 import pt.lunacloud.transform.Unmarshaller;
 import pt.lunacloud.util.json.JSONObject;
 
 
-public class JsonErrorResponseHandler implements HttpResponseHandler<AmazonServiceException> {
+public class JsonErrorResponseHandler implements HttpResponseHandler<LunacloudServiceException> {
 
     /**
      * The list of error response unmarshallers to try to apply to error
      * responses.
      */
-    private List<Unmarshaller<AmazonServiceException, JSONObject>> unmarshallerList;
+    private List<Unmarshaller<LunacloudServiceException, JSONObject>> unmarshallerList;
 
-    public JsonErrorResponseHandler(List<Unmarshaller<AmazonServiceException, JSONObject>> exceptionUnmarshallers) {
+    public JsonErrorResponseHandler(List<Unmarshaller<LunacloudServiceException, JSONObject>> exceptionUnmarshallers) {
         this.unmarshallerList = exceptionUnmarshallers;
     }
 
-    public AmazonServiceException handle(HttpResponse response) throws Exception {
+    public LunacloudServiceException handle(HttpResponse response) throws Exception {
         String streamContents = readStreamContents(response.getContent());
         JSONObject jsonErrorMessage;
         try {
@@ -47,10 +47,10 @@ public class JsonErrorResponseHandler implements HttpResponseHandler<AmazonServi
             if (s.length() == 0 || s.trim().length() == 0) s = "{}";
             jsonErrorMessage = new JSONObject(s);
         } catch (Exception e) {
-            throw new AmazonClientException("Unable to parse error response: '" + streamContents + "'", e);
+            throw new LunacloudClientException("Unable to parse error response: '" + streamContents + "'", e);
         }
 
-        AmazonServiceException ase = runErrorUnmarshallers(response, jsonErrorMessage);
+        LunacloudServiceException ase = runErrorUnmarshallers(response, jsonErrorMessage);
         if (ase == null) return null;
 
         ase.setServiceName(response.getRequest().getServiceName());
@@ -70,7 +70,7 @@ public class JsonErrorResponseHandler implements HttpResponseHandler<AmazonServi
         return ase;
     }
 
-    protected AmazonServiceException runErrorUnmarshallers(HttpResponse errorResponse, JSONObject json) throws Exception {
+    protected LunacloudServiceException runErrorUnmarshallers(HttpResponse errorResponse, JSONObject json) throws Exception {
         /*
          * We need to select which exception unmarshaller is the correct one to
          * use from all the possible exceptions this operation can throw.
@@ -78,8 +78,8 @@ public class JsonErrorResponseHandler implements HttpResponseHandler<AmazonServi
          * unmarshall the response, but we might need something a little more
          * sophisticated in the future.
          */
-        for (Unmarshaller<AmazonServiceException, JSONObject> unmarshaller : unmarshallerList) {
-            AmazonServiceException ase = unmarshaller.unmarshall(json);
+        for (Unmarshaller<LunacloudServiceException, JSONObject> unmarshaller : unmarshallerList) {
+            LunacloudServiceException ase = unmarshaller.unmarshall(json);
             if (ase != null) {
                 ase.setStatusCode(errorResponse.getStatusCode());
                 return ase;
@@ -106,7 +106,7 @@ public class JsonErrorResponseHandler implements HttpResponseHandler<AmazonServi
             return sb.toString();
         } catch (Exception e) {
             try {stream.close();} catch (Exception ex) {}
-            throw new AmazonClientException("Unable to read error response: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to read error response: " + e.getMessage(), e);
         }
     }
 

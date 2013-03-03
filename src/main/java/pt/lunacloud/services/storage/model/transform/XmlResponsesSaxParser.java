@@ -40,7 +40,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.services.storage.internal.Constants;
 import pt.lunacloud.services.storage.internal.DeleteObjectsResponse;
 import pt.lunacloud.services.storage.internal.ObjectExpirationResult;
@@ -103,9 +103,9 @@ public class XmlResponsesSaxParser {
 	/**
 	 * Constructs the XML SAX parser.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
-	public XmlResponsesSaxParser() throws AmazonClientException {
+	public XmlResponsesSaxParser() throws LunacloudClientException {
 		// Ensure we can load the XML Reader.
 		try {
 			xr = XMLReaderFactory.createXMLReader();
@@ -117,7 +117,7 @@ public class XmlResponsesSaxParser {
 				// Try once more...
 				xr = XMLReaderFactory.createXMLReader();
 			} catch (SAXException e2) {
-				throw new AmazonClientException(
+				throw new LunacloudClientException(
 				        "Couldn't initialize a sax driver for the XMLReader");
 			}
 		}
@@ -131,12 +131,12 @@ public class XmlResponsesSaxParser {
 	 * @param inputStream
 	 *            an input stream containing the XML document to parse
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 *             any parsing, IO or other exceptions are wrapped in an
 	 *             S3ServiceException.
 	 */
 	protected void parseXmlInputStream(DefaultHandler handler,
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		try {
 			if (log.isDebugEnabled()) {
 				log.debug("Parsing XML response document with handler: "
@@ -158,14 +158,14 @@ public class XmlResponsesSaxParser {
 					        e);
 				}
 			}
-			throw new AmazonClientException(
+			throw new LunacloudClientException(
 			        "Failed to parse XML document with handler "
 			                + handler.getClass(), t);
 		}
 	}
 
 	protected InputStream sanitizeXmlDocument(DefaultHandler handler,
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		if (!sanitizeXmlDocument) {
 			// No sanitizing will be performed, return the original input stream
 			// unchanged.
@@ -216,7 +216,7 @@ public class XmlResponsesSaxParser {
 						        e);
 					}
 				}
-				throw new AmazonClientException(
+				throw new LunacloudClientException(
 				        "Failed to sanitize XML document destined for handler "
 				                + handler.getClass(), t);
 			}
@@ -291,10 +291,10 @@ public class XmlResponsesSaxParser {
 	 *            XML data input stream.
 	 * @return the XML handler object populated with data parsed from the XML
 	 *         stream.
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
 	public ListBucketHandler parseListBucketObjectsResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		ListBucketHandler handler = new ListBucketHandler();
 		parseXmlInputStream(handler, sanitizeXmlDocument(handler, inputStream));
 		return handler;
@@ -307,10 +307,10 @@ public class XmlResponsesSaxParser {
 	 *            XML data input stream.
 	 * @return the XML handler object populated with data parsed from the XML
 	 *         stream.
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
 	public ListVersionsHandler parseListVersionsResponse(InputStream inputStream)
-	        throws AmazonClientException {
+	        throws LunacloudClientException {
 		ListVersionsHandler handler = new ListVersionsHandler();
 		parseXmlInputStream(handler, sanitizeXmlDocument(handler, inputStream));
 		return handler;
@@ -323,10 +323,10 @@ public class XmlResponsesSaxParser {
 	 *            XML data input stream.
 	 * @return the XML handler object populated with data parsed from the XML
 	 *         stream.
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
 	public ListAllMyBucketsHandler parseListMyBucketsResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		ListAllMyBucketsHandler handler = new ListAllMyBucketsHandler();
 		parseXmlInputStream(handler, sanitizeXmlDocument(handler, inputStream));
 		return handler;
@@ -341,10 +341,10 @@ public class XmlResponsesSaxParser {
 	 * @return the XML handler object populated with data parsed from the XML
 	 *         stream.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
 	public AccessControlListHandler parseAccessControlListResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		AccessControlListHandler handler = new AccessControlListHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
@@ -359,10 +359,10 @@ public class XmlResponsesSaxParser {
 	 * @return the XML handler object populated with data parsed from the XML
 	 *         stream.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
 	public BucketLoggingConfigurationHandler parseLoggingStatusResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		BucketLoggingConfigurationHandler handler = new BucketLoggingConfigurationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
@@ -383,35 +383,35 @@ public class XmlResponsesSaxParser {
 	}
 
 	public String parseBucketLocationResponse(InputStream inputStream)
-	        throws AmazonClientException {
+	        throws LunacloudClientException {
 		BucketLocationHandler handler = new BucketLocationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler.getLocation();
 	}
 
 	public BucketVersioningConfigurationHandler parseVersioningConfigurationResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		BucketVersioningConfigurationHandler handler = new BucketVersioningConfigurationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public BucketWebsiteConfigurationHandler parseWebsiteConfigurationResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		BucketWebsiteConfigurationHandler handler = new BucketWebsiteConfigurationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public BucketNotificationConfigurationHandler parseNotificationConfigurationResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		BucketNotificationConfigurationHandler handler = new BucketNotificationConfigurationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public BucketTaggingConfigurationHandler parseTaggingConfigurationResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		BucketTaggingConfigurationHandler handler = new BucketTaggingConfigurationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
@@ -425,35 +425,35 @@ public class XmlResponsesSaxParser {
 	}
 
 	public CopyObjectResultHandler parseCopyObjectResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		CopyObjectResultHandler handler = new CopyObjectResultHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public CompleteMultipartUploadHandler parseCompleteMultipartUploadResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		CompleteMultipartUploadHandler handler = new CompleteMultipartUploadHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public InitiateMultipartUploadHandler parseInitiateMultipartUploadResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		InitiateMultipartUploadHandler handler = new InitiateMultipartUploadHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public ListMultipartUploadsHandler parseListMultipartUploadsResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		ListMultipartUploadsHandler handler = new ListMultipartUploadsHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
 	}
 
 	public ListPartsHandler parseListPartsResponse(InputStream inputStream)
-	        throws AmazonClientException {
+	        throws LunacloudClientException {
 		ListPartsHandler handler = new ListPartsHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler;
@@ -465,10 +465,10 @@ public class XmlResponsesSaxParser {
 	 * @return true if the bucket's is configured as Requester Pays, false if it
 	 *         is configured as Owner pays.
 	 * 
-	 * @throws AmazonClientException
+	 * @throws LunacloudClientException
 	 */
 	public boolean parseRequestPaymentConfigurationResponse(
-	        InputStream inputStream) throws AmazonClientException {
+	        InputStream inputStream) throws LunacloudClientException {
 		RequestPaymentConfigurationHandler handler = new RequestPaymentConfigurationHandler();
 		parseXmlInputStream(handler, inputStream);
 		return handler.isRequesterPays();

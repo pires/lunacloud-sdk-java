@@ -35,7 +35,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.services.storage.LunacloudStorageClient;
 import pt.lunacloud.services.storage.model.StorageObject;
@@ -143,7 +143,7 @@ public class ServiceUtils {
             // well-supported '%20' instead.
             return encodedString.replaceAll("\\+", "%20");
         } catch (UnsupportedEncodingException e) {
-            throw new AmazonClientException("Unable to encode path: " + s, e);
+            throw new LunacloudClientException("Unable to encode path: " + s, e);
         }
     }
 
@@ -155,7 +155,7 @@ public class ServiceUtils {
      *            The request to convert into a URL.
      * @return A new URL representing the specified request.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If the request cannot be converted to a well formed URL.
      */
     public static URL convertRequestToUrl(Request<?> request) {
@@ -178,7 +178,7 @@ public class ServiceUtils {
         try {
             return new URL(urlString);
         } catch (MalformedURLException e) {
-            throw new AmazonClientException(
+            throw new LunacloudClientException(
                     "Unable to convert request to well formed URL: " + e.getMessage(), e);
         }
     }
@@ -243,7 +243,7 @@ public class ServiceUtils {
             } catch ( IOException abortException ) {
                 log.warn("Couldn't abort stream", e);
             }
-            throw new AmazonClientException(
+            throw new LunacloudClientException(
                     "Unable to store object contents to disk: " + e.getMessage(), e);
         } finally {
             try {outputStream.close();} catch (Exception e) {}
@@ -263,7 +263,7 @@ public class ServiceUtils {
         }
 
         if (performIntegrityCheck && clientSideHash != null && serverSideHash != null && !Arrays.equals(clientSideHash, serverSideHash)) {
-            throw new AmazonClientException("Unable to verify integrity of data download.  " +
+            throw new LunacloudClientException("Unable to verify integrity of data download.  " +
                     "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
                     "The data stored in '" + destinationFile.getAbsolutePath() + "' may be corrupt.");
         }

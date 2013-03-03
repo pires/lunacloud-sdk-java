@@ -14,7 +14,7 @@
  */
 package pt.lunacloud.auth;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 
 /**
  * {@link LunacloudCredentialsProvider} implementation that provides credentials by
@@ -37,7 +37,7 @@ public class SystemPropertiesCredentialsProvider implements LunacloudCredentials
                     System.getProperty(SECRET_KEY_PROPERTY));
         }
 
-        throw new AmazonClientException(
+        throw new LunacloudClientException(
                 "Unable to load AWS credentials from Java system properties " +
                 "(" + ACCESS_KEY_PROPERTY + " and " + SECRET_KEY_PROPERTY + ")");
     }

@@ -16,7 +16,7 @@ package pt.lunacloud.services.storage.internal;
 
 import java.util.Date;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.Request;
 import pt.lunacloud.auth.LunacloudCredentials;
 import pt.lunacloud.auth.AWSSessionCredentials;
@@ -61,7 +61,7 @@ public class S3QueryStringSigner<T> extends AbstractAWSSigner {
             throw new IllegalArgumentException("Parameter resourcePath is empty");
     }
 
-    public void sign(Request<?> request, LunacloudCredentials credentials) throws AmazonClientException {
+    public void sign(Request<?> request, LunacloudCredentials credentials) throws LunacloudClientException {
         LunacloudCredentials sanitizedCredentials = sanitizeCredentials(credentials);
 
         if ( sanitizedCredentials instanceof AWSSessionCredentials ) {

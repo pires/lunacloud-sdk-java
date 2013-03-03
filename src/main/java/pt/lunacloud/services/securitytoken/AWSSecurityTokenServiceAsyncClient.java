@@ -19,8 +19,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import pt.lunacloud.AmazonClientException;
-import pt.lunacloud.AmazonServiceException;
+import pt.lunacloud.LunacloudClientException;
+import pt.lunacloud.LunacloudServiceException;
 import pt.lunacloud.ClientConfiguration;
 import pt.lunacloud.auth.LunacloudCredentials;
 import pt.lunacloud.auth.LunacloudCredentialsProvider;
@@ -296,16 +296,16 @@ public class AWSSecurityTokenServiceAsyncClient extends AWSSecurityTokenServiceC
      *         GetSessionToken service method, as returned by
      *         AWSSecurityTokenService.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public Future<GetSessionTokenResult> getSessionTokenAsync(final GetSessionTokenRequest getSessionTokenRequest) 
-            throws AmazonServiceException, AmazonClientException {
+            throws LunacloudServiceException, LunacloudClientException {
         return executorService.submit(new Callable<GetSessionTokenResult>() {
             public GetSessionTokenResult call() throws Exception {
                 return getSessionToken(getSessionTokenRequest);
@@ -344,18 +344,18 @@ public class AWSSecurityTokenServiceAsyncClient extends AWSSecurityTokenServiceC
      *         GetSessionToken service method, as returned by
      *         AWSSecurityTokenService.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public Future<GetSessionTokenResult> getSessionTokenAsync(
             final GetSessionTokenRequest getSessionTokenRequest,
             final AsyncHandler<GetSessionTokenRequest, GetSessionTokenResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
+                    throws LunacloudServiceException, LunacloudClientException {
         return executorService.submit(new Callable<GetSessionTokenResult>() {
             public GetSessionTokenResult call() throws Exception {
             	GetSessionTokenResult result;
@@ -405,16 +405,16 @@ public class AWSSecurityTokenServiceAsyncClient extends AWSSecurityTokenServiceC
      *         GetFederationToken service method, as returned by
      *         AWSSecurityTokenService.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public Future<GetFederationTokenResult> getFederationTokenAsync(final GetFederationTokenRequest getFederationTokenRequest) 
-            throws AmazonServiceException, AmazonClientException {
+            throws LunacloudServiceException, LunacloudClientException {
         return executorService.submit(new Callable<GetFederationTokenResult>() {
             public GetFederationTokenResult call() throws Exception {
                 return getFederationToken(getFederationTokenRequest);
@@ -461,18 +461,18 @@ public class AWSSecurityTokenServiceAsyncClient extends AWSSecurityTokenServiceC
      *         GetFederationToken service method, as returned by
      *         AWSSecurityTokenService.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public Future<GetFederationTokenResult> getFederationTokenAsync(
             final GetFederationTokenRequest getFederationTokenRequest,
             final AsyncHandler<GetFederationTokenRequest, GetFederationTokenResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
+                    throws LunacloudServiceException, LunacloudClientException {
         return executorService.submit(new Callable<GetFederationTokenResult>() {
             public GetFederationTokenResult call() throws Exception {
             	GetFederationTokenResult result;
@@ -534,16 +534,16 @@ public class AWSSecurityTokenServiceAsyncClient extends AWSSecurityTokenServiceC
      * @return A Java Future object containing the response from the
      *         AssumeRole service method, as returned by AWSSecurityTokenService.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public Future<AssumeRoleResult> assumeRoleAsync(final AssumeRoleRequest assumeRoleRequest) 
-            throws AmazonServiceException, AmazonClientException {
+            throws LunacloudServiceException, LunacloudClientException {
         return executorService.submit(new Callable<AssumeRoleResult>() {
             public AssumeRoleResult call() throws Exception {
                 return assumeRole(assumeRoleRequest);
@@ -602,18 +602,18 @@ public class AWSSecurityTokenServiceAsyncClient extends AWSSecurityTokenServiceC
      * @return A Java Future object containing the response from the
      *         AssumeRole service method, as returned by AWSSecurityTokenService.
      *
-     * @throws AmazonClientException
+     * @throws LunacloudClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
      *             if a network connection is not available.
-     * @throws AmazonServiceException
+     * @throws LunacloudServiceException
      *             If an error response is returned by AWSSecurityTokenService indicating
      *             either a problem with the data in the request, or a server side issue.
      */
     public Future<AssumeRoleResult> assumeRoleAsync(
             final AssumeRoleRequest assumeRoleRequest,
             final AsyncHandler<AssumeRoleRequest, AssumeRoleResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
+                    throws LunacloudServiceException, LunacloudClientException {
         return executorService.submit(new Callable<AssumeRoleResult>() {
             public AssumeRoleResult call() throws Exception {
             	AssumeRoleResult result;

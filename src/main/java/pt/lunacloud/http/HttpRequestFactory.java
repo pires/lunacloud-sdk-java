@@ -30,7 +30,7 @@ import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.params.CoreProtocolPNames;
 
-import pt.lunacloud.AmazonClientException;
+import pt.lunacloud.LunacloudClientException;
 import pt.lunacloud.ClientConfiguration;
 import pt.lunacloud.Request;
 import pt.lunacloud.util.HttpUtils;
@@ -132,7 +132,7 @@ class HttpRequestFactory {
         } else if (request.getHttpMethod() == HttpMethodName.HEAD) {
             httpRequest = new HttpHead(uri);
         } else {
-            throw new AmazonClientException("Unknown HTTP method name: " + request.getHttpMethod());
+            throw new LunacloudClientException("Unknown HTTP method name: " + request.getHttpMethod());
         }
 
         configureHeaders(httpRequest, request, context, clientConfiguration);
@@ -205,7 +205,7 @@ class HttpRequestFactory {
         try {
             return new StringEntity(s);
         } catch (UnsupportedEncodingException e) {
-            throw new AmazonClientException("Unable to create HTTP entity: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to create HTTP entity: " + e.getMessage(), e);
         }
     }
 
@@ -222,7 +222,7 @@ class HttpRequestFactory {
         try {
             return new BufferedHttpEntity(entity);
         } catch (IOException e) {
-            throw new AmazonClientException("Unable to create HTTP entity: " + e.getMessage(), e);
+            throw new LunacloudClientException("Unable to create HTTP entity: " + e.getMessage(), e);
         }
     }
 }
