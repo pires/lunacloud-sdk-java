@@ -59,21 +59,6 @@
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
-
-    <!-- JDK 1.6 and above include StAX support by default, so these two 
-      dependencies are only needed for compiling/running against a 1.5 JVM. -->
-    <dependency>
-      <groupId>stax</groupId>
-      <artifactId>stax-api</artifactId>
-      <version>1.0.1</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>stax</groupId>
-      <artifactId>stax</artifactId>
-      <version>1.2.0</version>
-      <optional>true</optional>
-    </dependency>
   </dependencies>
 
   <developers>
